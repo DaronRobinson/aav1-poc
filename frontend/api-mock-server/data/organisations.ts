@@ -1,0 +1,58 @@
+import { Organisation } from "../schemas";
+import { timestamps } from "./lib";
+
+export const organisations: Organisation[] = [
+  {
+    id: "O-123",
+    name: "EcoFly",
+    legalName: "EcoFly New Zealand Limited",
+    type: "Limited",
+    businessType: "Air and Space Transport (490)",
+    highestParentCompanyId: "O-123",
+    highestParentCompany: "EcoFly",
+    description: "New Zealand's most eco-friendly airline",
+    statementOfIntent: "To be the most transparent eco-friendly airline in the world as we endeavour to innovate industry leading CO2 reduction technologies",
+    anzsicCode: "4900",
+    ...timestamps,
+  },
+  {
+    id: "O-124",
+    name: "FE Seedlings",
+    legalName: "FE Seedlings Limited",
+    type: "Limited",
+    businessType: "Nursery and Floriculture Production (001)",
+    highestParentCompanyId: "0-125",
+    highestParentCompany: "Forest Enterprises",
+    description: "Wairarapa based Pinus Radiata seedling nursery",
+    statementOfIntent: "Carbon neutral by 2025",
+    anzsicCode: "0011",
+    ...timestamps,
+  },
+  {
+    id: "O-125",
+    name: "Forest Investments",
+    legalName: "Forest Investments Limited (Wairarapa)",
+    type: "Limited",
+    businessType: "Forestry and Logging (030)",
+    highestParentCompanyId: "O-125",
+    highestParentCompany: "Forest Enterprises",
+    description: "New Zealands Leading Sustainable Forestry Investment service",
+    statementOfIntent: "Targetting a 50% reduction in CO2 emissions by 2030",
+    anzsicCode: "0301",
+    ...timestamps,
+  },
+  {
+    id: "O-126",
+    name: "Carmicheal Extrusions",
+    legalName: "Carmicheal Extrusions Limited",
+    type: "Limited",
+    businessType: "Basic Non-Ferrous Metal Product Manufacturing (214)",
+    highestParentCompanyId: "O-126",
+    highestParentCompany: "Carmicheal Extrusions",
+    description: "Quality Aluminium Extrusions for the building sector",
+    statementOfIntent: "Recycling 100% of our aluminium waste using renewabably sourced energy by 2025, and reducing our overall CO2 emissions by 20% by 2030",
+    anzsicCode: "2142",
+    ...timestamps,
+  },
+];
+

@@ -1,0 +1,27 @@
+{
+  "name": "api-mock-server",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node-dev -T --respawn server-start.ts"
+  },
+  "dependencies": {
+    "@fastify/autoload": "^5.7.1",
+    "@fastify/cors": "^8.2.1",
+    "@fastify/swagger": "^8.3.1",
+    "@fastify/swagger-ui": "^1.6.0",
+    "@fastify/type-provider-typebox": "^3.0.0",
+    "@sinclair/typebox": "^0.26.8",
+    "date-fns": "^2.29.3",
+    "fastify": "^4.15.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11",
+    "fastify-tsconfig": "^1.0.1",
+    "nodemon": "^2.0.22",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.3"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "business_units",
+  "info": {
+    "singularName": "business-unit",
+    "pluralName": "business-units",
+    "displayName": "Business Unit",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "organisationId": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organisation.organisation"
+    },
+    "type": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "isHeadOffice": {
+      "type": "boolean"
+    },
+    "addresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::address.address",
+      "mappedBy": "businessUnitId"
+    }
+  }
+}

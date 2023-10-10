@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "singularName": "address",
+    "pluralName": "addresses",
+    "displayName": "Address",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "streetAddress": {
+      "type": "string"
+    },
+    "suburb": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "stateOrProvince": {
+      "type": "string"
+    },
+    "postCode": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "isPrimaryAddress": {
+      "type": "boolean"
+    },
+    "businessUnitId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::business-unit.business-unit",
+      "inversedBy": "addresses"
+    }
+  }
+}
