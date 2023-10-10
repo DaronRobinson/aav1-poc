@@ -1,3 +1,3 @@
-*Assurance App Proof of Concept*
+**Assurance App Proof of Concept**
 
-Using strapi backend, nextjs/react0-admin front end
+Using strapi backend, nextjs/react-admin front end
