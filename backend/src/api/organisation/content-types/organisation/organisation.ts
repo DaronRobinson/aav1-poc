@@ -21,7 +21,7 @@ export interface Organisation {
     highestParentCompanyID?: number;
     contacts: { data: Contact[] };
     assurances: { data: Assurance[] };
-    anzsic?: { data: Anzsic };
+    anzsicId?: { data: Anzsic };
   };
 }
 export interface Organisation_Plain {
@@ -36,7 +36,7 @@ export interface Organisation_Plain {
   highestParentCompanyID?: number;
   contacts: Contact_Plain[];
   assurances: Assurance_Plain[];
-  anzsic?: Anzsic_Plain;
+  anzsicId?: Anzsic_Plain;
 }
 
 export interface Organisation_NoRelations {
@@ -51,7 +51,7 @@ export interface Organisation_NoRelations {
   highestParentCompanyID?: number;
   contacts: number[];
   assurances: number[];
-  anzsic?: number;
+  anzsicId?: number;
 }
 
 export interface Organisation_AdminPanelLifeCycle {
@@ -66,5 +66,5 @@ export interface Organisation_AdminPanelLifeCycle {
   highestParentCompanyID?: number;
   contacts: AdminPanelRelationPropertyModification<Contact_Plain>;
   assurances: AdminPanelRelationPropertyModification<Assurance_Plain>;
-  anzsic?: AdminPanelRelationPropertyModification<Anzsic_Plain>;
+  anzsicId?: AdminPanelRelationPropertyModification<Anzsic_Plain>;
 }

@@ -1,3 +1,4 @@
+'use client';
 import {
   fetchUtils,
   DataProvider,
@@ -46,6 +47,8 @@ const raStrapiRest = (apiUrl: string, httpClient = fetchUtils.fetchJson): DataPr
     if (params.id && params.target && params.target.indexOf("_id") !== -1) {
       const target = params.target.substring(0, params.target.length - 3);
       filter += "&filters[" + target + "]_eq=" + params.id;
+    }else if(params.id && params.target ){
+      filter += "&filters[" + params.target + "]_eq=" + params.id;
     }
 
     // Handle PAGINATION
@@ -113,6 +116,7 @@ const raStrapiRest = (apiUrl: string, httpClient = fetchUtils.fetchJson): DataPr
     if (!input || input.length === 0) return input;
     const processItem = (item: any) => {
       const json = { id: item.id, ...item.attributes };
+      console.log('before', json);
 
       for (const key in json) {
         const { data } = json[key] || {};
@@ -136,6 +140,7 @@ const raStrapiRest = (apiUrl: string, httpClient = fetchUtils.fetchJson): DataPr
           json[key] = isArray ? data.map(({ id }) => id) : data.id.toString();
         }
       }
+      console.log('after',json);
       return json;
     };
 

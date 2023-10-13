@@ -19,3 +19,13 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+
+.plainInput div{
+  background-color: white !important;
+  border:0 !important;
+}
+
+.plainInput div::before {
+  border: 0 !important;
+}

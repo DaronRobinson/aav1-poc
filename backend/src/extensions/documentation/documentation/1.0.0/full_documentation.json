@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-10-10T02:30:39.556Z"
+    "x-generation-date": "2023-10-12T22:22:57.411Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -638,6 +638,82 @@
                                                     }
                                                   }
                                                 },
+                                                "certificationProgramme": {
+                                                  "type": "string"
+                                                },
+                                                "stageOfCertificationInProgramme": {
+                                                  "type": "string"
+                                                },
+                                                "auditObjectives": {
+                                                  "type": "string"
+                                                },
+                                                "scope": {
+                                                  "type": "string"
+                                                },
+                                                "reportingBaseYearStartDate": {
+                                                  "type": "string",
+                                                  "format": "date"
+                                                },
+                                                "reportingBaseYearEndDate": {
+                                                  "type": "string",
+                                                  "format": "date"
+                                                },
+                                                "reportingYearStartDate": {
+                                                  "type": "string",
+                                                  "format": "date"
+                                                },
+                                                "reportingYearEndDate": {
+                                                  "type": "string",
+                                                  "format": "date"
+                                                },
+                                                "excludedBusinessUnitIds": {},
+                                                "consolidationMethod": {
+                                                  "type": "string"
+                                                },
+                                                "auditType": {
+                                                  "type": "string"
+                                                },
+                                                "geographicalBoundaries": {},
+                                                "typeOfGHG": {},
+                                                "assuranceLevels": {},
+                                                "inventoryCompilationProcess": {},
+                                                "quantificationApproach": {},
+                                                "statementOfIntent": {
+                                                  "type": "string"
+                                                },
+                                                "intendedUse": {},
+                                                "excludeEmissionSources": {},
+                                                "executiveSummary": {
+                                                  "type": "string"
+                                                },
+                                                "status": {
+                                                  "type": "string"
+                                                },
+                                                "auditCriteria": {
+                                                  "type": "string"
+                                                },
+                                                "auditDate": {
+                                                  "type": "string",
+                                                  "format": "date"
+                                                },
+                                                "materialityMandatory": {
+                                                  "type": "integer"
+                                                },
+                                                "materialitySupplyOptional": {
+                                                  "type": "integer"
+                                                },
+                                                "isConsolidationMethodChangeApproved": {
+                                                  "type": "string"
+                                                },
+                                                "isReportingMethodAppropriate": {
+                                                  "type": "string"
+                                                },
+                                                "systemOrSoftwareComment": {
+                                                  "type": "string"
+                                                },
+                                                "systemOrSoftwareUsed": {
+                                                  "type": "string"
+                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -691,7 +767,7 @@
                                       }
                                     }
                                   },
-                                  "anzsic": {
+                                  "anzsicId": {
                                     "type": "object",
                                     "properties": {
                                       "data": {
@@ -728,26 +804,6 @@
                                                 "type": "string"
                                               },
                                               "emissionData": {},
-                                              "organisations": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "data": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object",
-                                                      "properties": {
-                                                        "id": {
-                                                          "type": "number"
-                                                        },
-                                                        "attributes": {
-                                                          "type": "object",
-                                                          "properties": {}
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              },
                                               "createdAt": {
                                                 "type": "string",
                                                 "format": "date-time"
@@ -1121,21 +1177,7 @@
               "risk": {
                 "type": "string"
               },
-              "emissionData": {},
-              "organisations": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "integer"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "example": "string or id"
-                }
-              }
+              "emissionData": {}
             }
           }
         }
@@ -1214,79 +1256,81 @@
             "type": "string"
           },
           "emissionData": {},
-          "organisations": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
             "type": "object",
             "properties": {
               "data": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "legalName": {
-                          "type": "string"
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "highestParentCompany": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "statementOfIntent": {
-                          "type": "string"
-                        },
-                        "anzsicCode": {
-                          "type": "string"
-                        },
-                        "highestParentCompanyID": {
-                          "type": "string",
-                          "pattern": "^\\d*$",
-                          "example": "123456789"
-                        },
-                        "contacts": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "attributes": {
-                                    "type": "object",
-                                    "properties": {
-                                      "firstName": {
-                                        "type": "string"
-                                      },
-                                      "lastName": {
-                                        "type": "string"
-                                      },
-                                      "email": {
-                                        "type": "string"
-                                      },
-                                      "phone": {
-                                        "type": "string"
-                                      },
-                                      "role": {
-                                        "type": "string"
-                                      },
-                                      "organisationId": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "properties": {
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "resetPasswordToken": {
+                        "type": "string"
+                      },
+                      "registrationToken": {
+                        "type": "string"
+                      },
+                      "isActive": {
+                        "type": "boolean"
+                      },
+                      "roles": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "attributes": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    },
+                                    "users": {
+                                      "type": "object",
+                                      "properties": {
+                                        "data": {
+                                          "type": "array",
+                                          "items": {
                                             "type": "object",
                                             "properties": {
                                               "id": {
@@ -1299,23 +1343,14 @@
                                             }
                                           }
                                         }
-                                      },
-                                      "createdAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "updatedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "publishedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "createdBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
+                                      }
+                                    },
+                                    "permissions": {
+                                      "type": "object",
+                                      "properties": {
+                                        "data": {
+                                          "type": "array",
+                                          "items": {
                                             "type": "object",
                                             "properties": {
                                               "id": {
@@ -1324,213 +1359,30 @@
                                               "attributes": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "firstname": {
+                                                  "action": {
                                                     "type": "string"
                                                   },
-                                                  "lastname": {
+                                                  "subject": {
                                                     "type": "string"
                                                   },
-                                                  "username": {
-                                                    "type": "string"
-                                                  },
-                                                  "email": {
-                                                    "type": "string",
-                                                    "format": "email"
-                                                  },
-                                                  "resetPasswordToken": {
-                                                    "type": "string"
-                                                  },
-                                                  "registrationToken": {
-                                                    "type": "string"
-                                                  },
-                                                  "isActive": {
-                                                    "type": "boolean"
-                                                  },
-                                                  "roles": {
+                                                  "properties": {},
+                                                  "conditions": {},
+                                                  "role": {
                                                     "type": "object",
                                                     "properties": {
                                                       "data": {
-                                                        "type": "array",
-                                                        "items": {
-                                                          "type": "object",
-                                                          "properties": {
-                                                            "id": {
-                                                              "type": "number"
-                                                            },
-                                                            "attributes": {
-                                                              "type": "object",
-                                                              "properties": {
-                                                                "name": {
-                                                                  "type": "string"
-                                                                },
-                                                                "code": {
-                                                                  "type": "string"
-                                                                },
-                                                                "description": {
-                                                                  "type": "string"
-                                                                },
-                                                                "users": {
-                                                                  "type": "object",
-                                                                  "properties": {
-                                                                    "data": {
-                                                                      "type": "array",
-                                                                      "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                          "id": {
-                                                                            "type": "number"
-                                                                          },
-                                                                          "attributes": {
-                                                                            "type": "object",
-                                                                            "properties": {}
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "permissions": {
-                                                                  "type": "object",
-                                                                  "properties": {
-                                                                    "data": {
-                                                                      "type": "array",
-                                                                      "items": {
-                                                                        "type": "object",
-                                                                        "properties": {
-                                                                          "id": {
-                                                                            "type": "number"
-                                                                          },
-                                                                          "attributes": {
-                                                                            "type": "object",
-                                                                            "properties": {
-                                                                              "action": {
-                                                                                "type": "string"
-                                                                              },
-                                                                              "subject": {
-                                                                                "type": "string"
-                                                                              },
-                                                                              "properties": {},
-                                                                              "conditions": {},
-                                                                              "role": {
-                                                                                "type": "object",
-                                                                                "properties": {
-                                                                                  "data": {
-                                                                                    "type": "object",
-                                                                                    "properties": {
-                                                                                      "id": {
-                                                                                        "type": "number"
-                                                                                      },
-                                                                                      "attributes": {
-                                                                                        "type": "object",
-                                                                                        "properties": {}
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              "createdAt": {
-                                                                                "type": "string",
-                                                                                "format": "date-time"
-                                                                              },
-                                                                              "updatedAt": {
-                                                                                "type": "string",
-                                                                                "format": "date-time"
-                                                                              },
-                                                                              "createdBy": {
-                                                                                "type": "object",
-                                                                                "properties": {
-                                                                                  "data": {
-                                                                                    "type": "object",
-                                                                                    "properties": {
-                                                                                      "id": {
-                                                                                        "type": "number"
-                                                                                      },
-                                                                                      "attributes": {
-                                                                                        "type": "object",
-                                                                                        "properties": {}
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              },
-                                                                              "updatedBy": {
-                                                                                "type": "object",
-                                                                                "properties": {
-                                                                                  "data": {
-                                                                                    "type": "object",
-                                                                                    "properties": {
-                                                                                      "id": {
-                                                                                        "type": "number"
-                                                                                      },
-                                                                                      "attributes": {
-                                                                                        "type": "object",
-                                                                                        "properties": {}
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "createdAt": {
-                                                                  "type": "string",
-                                                                  "format": "date-time"
-                                                                },
-                                                                "updatedAt": {
-                                                                  "type": "string",
-                                                                  "format": "date-time"
-                                                                },
-                                                                "createdBy": {
-                                                                  "type": "object",
-                                                                  "properties": {
-                                                                    "data": {
-                                                                      "type": "object",
-                                                                      "properties": {
-                                                                        "id": {
-                                                                          "type": "number"
-                                                                        },
-                                                                        "attributes": {
-                                                                          "type": "object",
-                                                                          "properties": {}
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "updatedBy": {
-                                                                  "type": "object",
-                                                                  "properties": {
-                                                                    "data": {
-                                                                      "type": "object",
-                                                                      "properties": {
-                                                                        "id": {
-                                                                          "type": "number"
-                                                                        },
-                                                                        "attributes": {
-                                                                          "type": "object",
-                                                                          "properties": {}
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
+                                                        "type": "object",
+                                                        "properties": {
+                                                          "id": {
+                                                            "type": "number"
+                                                          },
+                                                          "attributes": {
+                                                            "type": "object",
+                                                            "properties": {}
                                                           }
                                                         }
                                                       }
                                                     }
-                                                  },
-                                                  "blocked": {
-                                                    "type": "boolean"
-                                                  },
-                                                  "preferedLanguage": {
-                                                    "type": "string"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",
@@ -1579,173 +1431,6 @@
                                             }
                                           }
                                         }
-                                      },
-                                      "updatedBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "assurances": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "attributes": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "organisationId": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "createdAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "updatedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "publishedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "createdBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "updatedBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "anzsic": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {
-                                    "division": {
-                                      "type": "string"
-                                    },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "divisionCode": {
-                                      "type": "string"
-                                    },
-                                    "subdivision": {
-                                      "type": "string"
-                                    },
-                                    "group": {
-                                      "type": "string"
-                                    },
-                                    "class": {
-                                      "type": "string"
-                                    },
-                                    "label": {
-                                      "type": "string"
-                                    },
-                                    "risk": {
-                                      "type": "string"
-                                    },
-                                    "emissionData": {},
-                                    "organisations": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
                                       }
                                     },
                                     "createdAt": {
@@ -1753,10 +1438,6 @@
                                       "format": "date-time"
                                     },
                                     "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "publishedAt": {
                                       "type": "string",
                                       "format": "date-time"
                                     },
@@ -1799,84 +1480,57 @@
                               }
                             }
                           }
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "publishedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "createdBy": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
+                        }
+                      },
+                      "blocked": {
+                        "type": "boolean"
+                      },
+                      "preferedLanguage": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "createdBy": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "attributes": {
+                                "type": "object",
+                                "properties": {}
                               }
                             }
                           }
-                        },
-                        "updatedBy": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {}
-                                }
+                        }
+                      },
+                      "updatedBy": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "attributes": {
+                                "type": "object",
+                                "properties": {}
                               }
                             }
                           }
                         }
                       }
                     }
-                  }
-                }
-              }
-            }
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "publishedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdBy": {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "attributes": {
-                    "type": "object",
-                    "properties": {}
                   }
                 }
               }
@@ -1945,6 +1599,82 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "certificationProgramme": {
+                "type": "string"
+              },
+              "stageOfCertificationInProgramme": {
+                "type": "string"
+              },
+              "auditObjectives": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "reportingBaseYearStartDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "reportingBaseYearEndDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "reportingYearStartDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "reportingYearEndDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "excludedBusinessUnitIds": {},
+              "consolidationMethod": {
+                "type": "string"
+              },
+              "auditType": {
+                "type": "string"
+              },
+              "geographicalBoundaries": {},
+              "typeOfGHG": {},
+              "assuranceLevels": {},
+              "inventoryCompilationProcess": {},
+              "quantificationApproach": {},
+              "statementOfIntent": {
+                "type": "string"
+              },
+              "intendedUse": {},
+              "excludeEmissionSources": {},
+              "executiveSummary": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "auditCriteria": {
+                "type": "string"
+              },
+              "auditDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "materialityMandatory": {
+                "type": "integer"
+              },
+              "materialitySupplyOptional": {
+                "type": "integer"
+              },
+              "isConsolidationMethodChangeApproved": {
+                "type": "string"
+              },
+              "isReportingMethodAppropriate": {
+                "type": "string"
+              },
+              "systemOrSoftwareComment": {
+                "type": "string"
+              },
+              "systemOrSoftwareUsed": {
+                "type": "string"
               }
             }
           }
@@ -2424,6 +2154,82 @@
                                         }
                                       }
                                     },
+                                    "certificationProgramme": {
+                                      "type": "string"
+                                    },
+                                    "stageOfCertificationInProgramme": {
+                                      "type": "string"
+                                    },
+                                    "auditObjectives": {
+                                      "type": "string"
+                                    },
+                                    "scope": {
+                                      "type": "string"
+                                    },
+                                    "reportingBaseYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingBaseYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "excludedBusinessUnitIds": {},
+                                    "consolidationMethod": {
+                                      "type": "string"
+                                    },
+                                    "auditType": {
+                                      "type": "string"
+                                    },
+                                    "geographicalBoundaries": {},
+                                    "typeOfGHG": {},
+                                    "assuranceLevels": {},
+                                    "inventoryCompilationProcess": {},
+                                    "quantificationApproach": {},
+                                    "statementOfIntent": {
+                                      "type": "string"
+                                    },
+                                    "intendedUse": {},
+                                    "excludeEmissionSources": {},
+                                    "executiveSummary": {
+                                      "type": "string"
+                                    },
+                                    "status": {
+                                      "type": "string"
+                                    },
+                                    "auditCriteria": {
+                                      "type": "string"
+                                    },
+                                    "auditDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "materialityMandatory": {
+                                      "type": "integer"
+                                    },
+                                    "materialitySupplyOptional": {
+                                      "type": "integer"
+                                    },
+                                    "isConsolidationMethodChangeApproved": {
+                                      "type": "string"
+                                    },
+                                    "isReportingMethodAppropriate": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareComment": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareUsed": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string",
                                       "format": "date-time"
@@ -2477,7 +2283,7 @@
                           }
                         }
                       },
-                      "anzsic": {
+                      "anzsicId": {
                         "type": "object",
                         "properties": {
                           "data": {
@@ -2514,26 +2320,6 @@
                                     "type": "string"
                                   },
                                   "emissionData": {},
-                                  "organisations": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -2637,6 +2423,82 @@
                 }
               }
             }
+          },
+          "certificationProgramme": {
+            "type": "string"
+          },
+          "stageOfCertificationInProgramme": {
+            "type": "string"
+          },
+          "auditObjectives": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "reportingBaseYearStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reportingBaseYearEndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reportingYearStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "reportingYearEndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "excludedBusinessUnitIds": {},
+          "consolidationMethod": {
+            "type": "string"
+          },
+          "auditType": {
+            "type": "string"
+          },
+          "geographicalBoundaries": {},
+          "typeOfGHG": {},
+          "assuranceLevels": {},
+          "inventoryCompilationProcess": {},
+          "quantificationApproach": {},
+          "statementOfIntent": {
+            "type": "string"
+          },
+          "intendedUse": {},
+          "excludeEmissionSources": {},
+          "executiveSummary": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "auditCriteria": {
+            "type": "string"
+          },
+          "auditDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "materialityMandatory": {
+            "type": "integer"
+          },
+          "materialitySupplyOptional": {
+            "type": "integer"
+          },
+          "isConsolidationMethodChangeApproved": {
+            "type": "string"
+          },
+          "isReportingMethodAppropriate": {
+            "type": "string"
+          },
+          "systemOrSoftwareComment": {
+            "type": "string"
+          },
+          "systemOrSoftwareUsed": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -3232,6 +3094,82 @@
                                         }
                                       }
                                     },
+                                    "certificationProgramme": {
+                                      "type": "string"
+                                    },
+                                    "stageOfCertificationInProgramme": {
+                                      "type": "string"
+                                    },
+                                    "auditObjectives": {
+                                      "type": "string"
+                                    },
+                                    "scope": {
+                                      "type": "string"
+                                    },
+                                    "reportingBaseYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingBaseYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "excludedBusinessUnitIds": {},
+                                    "consolidationMethod": {
+                                      "type": "string"
+                                    },
+                                    "auditType": {
+                                      "type": "string"
+                                    },
+                                    "geographicalBoundaries": {},
+                                    "typeOfGHG": {},
+                                    "assuranceLevels": {},
+                                    "inventoryCompilationProcess": {},
+                                    "quantificationApproach": {},
+                                    "statementOfIntent": {
+                                      "type": "string"
+                                    },
+                                    "intendedUse": {},
+                                    "excludeEmissionSources": {},
+                                    "executiveSummary": {
+                                      "type": "string"
+                                    },
+                                    "status": {
+                                      "type": "string"
+                                    },
+                                    "auditCriteria": {
+                                      "type": "string"
+                                    },
+                                    "auditDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "materialityMandatory": {
+                                      "type": "integer"
+                                    },
+                                    "materialitySupplyOptional": {
+                                      "type": "integer"
+                                    },
+                                    "isConsolidationMethodChangeApproved": {
+                                      "type": "string"
+                                    },
+                                    "isReportingMethodAppropriate": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareComment": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareUsed": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string",
                                       "format": "date-time"
@@ -3285,7 +3223,7 @@
                           }
                         }
                       },
-                      "anzsic": {
+                      "anzsicId": {
                         "type": "object",
                         "properties": {
                           "data": {
@@ -3322,26 +3260,6 @@
                                     "type": "string"
                                   },
                                   "emissionData": {},
-                                  "organisations": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -4251,6 +4169,82 @@
                                         }
                                       }
                                     },
+                                    "certificationProgramme": {
+                                      "type": "string"
+                                    },
+                                    "stageOfCertificationInProgramme": {
+                                      "type": "string"
+                                    },
+                                    "auditObjectives": {
+                                      "type": "string"
+                                    },
+                                    "scope": {
+                                      "type": "string"
+                                    },
+                                    "reportingBaseYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingBaseYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearStartDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "reportingYearEndDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "excludedBusinessUnitIds": {},
+                                    "consolidationMethod": {
+                                      "type": "string"
+                                    },
+                                    "auditType": {
+                                      "type": "string"
+                                    },
+                                    "geographicalBoundaries": {},
+                                    "typeOfGHG": {},
+                                    "assuranceLevels": {},
+                                    "inventoryCompilationProcess": {},
+                                    "quantificationApproach": {},
+                                    "statementOfIntent": {
+                                      "type": "string"
+                                    },
+                                    "intendedUse": {},
+                                    "excludeEmissionSources": {},
+                                    "executiveSummary": {
+                                      "type": "string"
+                                    },
+                                    "status": {
+                                      "type": "string"
+                                    },
+                                    "auditCriteria": {
+                                      "type": "string"
+                                    },
+                                    "auditDate": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "materialityMandatory": {
+                                      "type": "integer"
+                                    },
+                                    "materialitySupplyOptional": {
+                                      "type": "integer"
+                                    },
+                                    "isConsolidationMethodChangeApproved": {
+                                      "type": "string"
+                                    },
+                                    "isReportingMethodAppropriate": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareComment": {
+                                      "type": "string"
+                                    },
+                                    "systemOrSoftwareUsed": {
+                                      "type": "string"
+                                    },
                                     "createdAt": {
                                       "type": "string",
                                       "format": "date-time"
@@ -4304,7 +4298,7 @@
                           }
                         }
                       },
-                      "anzsic": {
+                      "anzsicId": {
                         "type": "object",
                         "properties": {
                           "data": {
@@ -4341,26 +4335,6 @@
                                     "type": "string"
                                   },
                                   "emissionData": {},
-                                  "organisations": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -4598,7 +4572,7 @@
                   "example": "string or id"
                 }
               },
-              "anzsic": {
+              "anzsicId": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -4808,6 +4782,82 @@
                                                         }
                                                       }
                                                     }
+                                                  },
+                                                  "certificationProgramme": {
+                                                    "type": "string"
+                                                  },
+                                                  "stageOfCertificationInProgramme": {
+                                                    "type": "string"
+                                                  },
+                                                  "auditObjectives": {
+                                                    "type": "string"
+                                                  },
+                                                  "scope": {
+                                                    "type": "string"
+                                                  },
+                                                  "reportingBaseYearStartDate": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "reportingBaseYearEndDate": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "reportingYearStartDate": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "reportingYearEndDate": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "excludedBusinessUnitIds": {},
+                                                  "consolidationMethod": {
+                                                    "type": "string"
+                                                  },
+                                                  "auditType": {
+                                                    "type": "string"
+                                                  },
+                                                  "geographicalBoundaries": {},
+                                                  "typeOfGHG": {},
+                                                  "assuranceLevels": {},
+                                                  "inventoryCompilationProcess": {},
+                                                  "quantificationApproach": {},
+                                                  "statementOfIntent": {
+                                                    "type": "string"
+                                                  },
+                                                  "intendedUse": {},
+                                                  "excludeEmissionSources": {},
+                                                  "executiveSummary": {
+                                                    "type": "string"
+                                                  },
+                                                  "status": {
+                                                    "type": "string"
+                                                  },
+                                                  "auditCriteria": {
+                                                    "type": "string"
+                                                  },
+                                                  "auditDate": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "materialityMandatory": {
+                                                    "type": "integer"
+                                                  },
+                                                  "materialitySupplyOptional": {
+                                                    "type": "integer"
+                                                  },
+                                                  "isConsolidationMethodChangeApproved": {
+                                                    "type": "string"
+                                                  },
+                                                  "isReportingMethodAppropriate": {
+                                                    "type": "string"
+                                                  },
+                                                  "systemOrSoftwareComment": {
+                                                    "type": "string"
+                                                  },
+                                                  "systemOrSoftwareUsed": {
+                                                    "type": "string"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",
@@ -5113,7 +5163,7 @@
                                         }
                                       }
                                     },
-                                    "anzsic": {
+                                    "anzsicId": {
                                       "type": "object",
                                       "properties": {
                                         "data": {
@@ -5150,26 +5200,6 @@
                                                   "type": "string"
                                                 },
                                                 "emissionData": {},
-                                                "organisations": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "data": {
-                                                      "type": "array",
-                                                      "items": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                },
                                                 "createdAt": {
                                                   "type": "string",
                                                   "format": "date-time"
@@ -5347,7 +5377,7 @@
               }
             }
           },
-          "anzsic": {
+          "anzsicId": {
             "type": "object",
             "properties": {
               "data": {

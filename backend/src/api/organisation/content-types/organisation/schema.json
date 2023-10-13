@@ -48,11 +48,10 @@
       "target": "api::assurance.assurance",
       "mappedBy": "organisationId"
     },
-    "anzsic": {
+    "anzsicId": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::anzsic.anzsic",
-      "inversedBy": "organisations"
+      "relation": "oneToOne",
+      "target": "api::anzsic.anzsic"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "assurance",
     "pluralName": "assurances",
-    "displayName": "Assurance"
+    "displayName": "Assurance",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,93 @@
       "relation": "manyToOne",
       "target": "api::organisation.organisation",
       "inversedBy": "assurances"
+    },
+    "certificationProgramme": {
+      "type": "string"
+    },
+    "stageOfCertificationInProgramme": {
+      "type": "string"
+    },
+    "auditObjectives": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "reportingBaseYearStartDate": {
+      "type": "date"
+    },
+    "reportingBaseYearEndDate": {
+      "type": "date"
+    },
+    "reportingYearStartDate": {
+      "type": "date"
+    },
+    "reportingYearEndDate": {
+      "type": "date"
+    },
+    "excludedBusinessUnitIds": {
+      "type": "json"
+    },
+    "consolidationMethod": {
+      "type": "string"
+    },
+    "auditType": {
+      "type": "string"
+    },
+    "geographicalBoundaries": {
+      "type": "json"
+    },
+    "typeOfGHG": {
+      "type": "json"
+    },
+    "assuranceLevels": {
+      "type": "json"
+    },
+    "inventoryCompilationProcess": {
+      "type": "json"
+    },
+    "quantificationApproach": {
+      "type": "json"
+    },
+    "statementOfIntent": {
+      "type": "text"
+    },
+    "intendedUse": {
+      "type": "json"
+    },
+    "excludeEmissionSources": {
+      "type": "json"
+    },
+    "executiveSummary": {
+      "type": "text"
+    },
+    "status": {
+      "type": "string"
+    },
+    "auditCriteria": {
+      "type": "text"
+    },
+    "auditDate": {
+      "type": "date"
+    },
+    "materialityMandatory": {
+      "type": "integer"
+    },
+    "materialitySupplyOptional": {
+      "type": "integer"
+    },
+    "isConsolidationMethodChangeApproved": {
+      "type": "string"
+    },
+    "isReportingMethodAppropriate": {
+      "type": "string"
+    },
+    "systemOrSoftwareComment": {
+      "type": "string"
+    },
+    "systemOrSoftwareUsed": {
+      "type": "string"
     }
   }
 }
