@@ -2,9 +2,16 @@ import { DateInput, Edit, ReferenceInput, SimpleForm, TextInput, WrapperField, T
 import {
   Box,
   Typography,
+  Grid,
 } from '@mui/material';
+import { OrganisationMenu } from '../organisations/organisationMenu';
+
 export const BusinessUnitEdit = () => (
-  <Box sx={{ width: "66%", margin: "0 auto" }}>
+  <Grid container spacing={2}>
+    <Grid item xs={6} sm={2}>
+      <OrganisationMenu />
+    </Grid>
+    <Grid item xs={6} sm={9}>
     <Box><Typography sx={{ fontSize: '28px', fontWeight: '600', paddingTop: '24px', marginBottom: "-10px" }}> Edit Business Unit</Typography></Box>
   <Edit>
       <SimpleForm sx={{ padding: "30px 50px" }}>
@@ -22,5 +29,8 @@ export const BusinessUnitEdit = () => (
         <span>^ Not the right widget here : We need the enterprise version to support <strong>one-to-many</strong> relationships in the form easily</span><br />
     </SimpleForm>
     </Edit>
-  </Box>
+    </Grid>
+    <Grid item xs={6} sm={1}>
+    </Grid>
+  </Grid>
 );

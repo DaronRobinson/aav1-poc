@@ -1,10 +1,8 @@
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
-// const AdminApp = dynamic(() => import("./AdminApp"), { ssr: false });
+ const AdminApp = dynamic(() => import("./adminApp"), { ssr: false });
 
-const Admin: NextPage = () => {
-  return <div>An admin system that allows editing of each entity type</div>
-};
+const AdminPage: NextPage = () => <AdminApp />;
 
-export default Admin;
+export default AdminPage;
 

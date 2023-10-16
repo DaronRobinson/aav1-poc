@@ -2,21 +2,22 @@ import { Datagrid, DateField, List, ReferenceArrayField, ReferenceField, TextFie
 import {
     Box,
     Typography,
+    Grid,
 } from '@mui/material';
+import { AssuranceMenu } from './assuranceMenu';
 export const AssuranceList = () => (
-    <div>
+    <Grid container spacing={2}>
+        <Grid item xs={6} sm={2}>
+            <AssuranceMenu />
+        </Grid>
+        <Grid item xs={6} sm={9}>
         <Box><Typography sx={{ fontSize: '28px', fontWeight: '600', paddingTop: '30px', marginBottom: "-20px" }}> Engagements</Typography></Box>
     <List>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="name" />
             <DateField source="auditDate" />
-            <DateField source="createdAt" />
-            <DateField source="updatedAt" />
             <TextField source="certificationProgramme" />
-            <TextField source="auditObjectives" />
-            <TextField source="auditCriteria" />
-            <TextField source="scope" />
             <TextField source="reportingYearStartDate" label="Start Date"/>
             <TextField source="reportingYearEndDate" label="End Date" />
             <TextField source="auditType" />
@@ -26,5 +27,8 @@ export const AssuranceList = () => (
             <ReferenceField source="organisationId" reference="organisations" />
         </Datagrid>
     </List>
- </div>
+        </Grid>
+        <Grid item xs={6} sm={1}>
+        </Grid>
+    </Grid>
 );

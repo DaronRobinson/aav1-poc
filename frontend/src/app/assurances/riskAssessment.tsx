@@ -3,9 +3,9 @@ import { List, Datagrid, TextField, Edit, SimpleForm, useGetOne } from 'react-ad
 import {
   Box,
   Typography,
+  Grid,
 } from '@mui/material';
 import { AssuranceMenu } from './assuranceMenu';
-import SideMenuLayout from '../../components/sideMenuLayout';
 import TitleBar from '../../components/titleBar';
 
 export const RiskAssessment = () => {
@@ -15,8 +15,12 @@ export const RiskAssessment = () => {
     { id }
   );
   return (
-    <SideMenuLayout Menu={<AssuranceMenu />}>
-      <Box>
+    <Grid container spacing={2}>
+      <Grid item xs={6} sm={2}>
+        <AssuranceMenu />
+      </Grid>
+      <Grid item xs={6} sm={9}>
+        <Box>
         <TitleBar title="Edit Risk Assessment" itemName={data.name} />
         <Edit>
           <SimpleForm sx={{ padding: "30px 50px" }}>
@@ -24,6 +28,9 @@ export const RiskAssessment = () => {
           </SimpleForm>
         </Edit>
       </Box>
-    </SideMenuLayout>
+      </Grid>
+      <Grid item xs={6} sm={1}>
+      </Grid>
+    </Grid>
   );
 };

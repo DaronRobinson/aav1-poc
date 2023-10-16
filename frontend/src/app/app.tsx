@@ -27,7 +27,7 @@ import { RiskAssessment } from "./assurances/riskAssessment";
 import { OrgBusinessUnits } from "./organisations/orgBusinessUnits";
 import { OrgAddresses } from "./organisations/orgAddresses";
 import { OrgContacts } from "./organisations/orgContacts";
-
+import AdminPage  from './admin/page';
 import { Dashboard } from './dashboard/dashboard';
 import './globals.css';
 
@@ -63,7 +63,7 @@ const App = () => (
       <Route path=":id/contacts" element={<OrgContacts />} />
     </Resource>
     <CustomRoutes>
-      <Route path="admin" element={<RiskAssessment />} />
+      <Route path="admin" element={<AdminPage />} />
     </CustomRoutes>
     <Resource
       name="business-units"

@@ -69,12 +69,12 @@ const Header = () => {
                 />
                 <Tab
                   sx={{ fontSize: "16px" }}
-                  label={'Business Units'}
+                  label={'Admin'}
                   component={Link}
-                  to="/business-units"
-                  value="/business-units"
+                  to="/admin"
+                  value="/admin"
                 />
-                <Tab
+                {/* <Tab
                   sx={{ fontSize: "16px" }}
                   label={'Contacts'}
                   component={Link}
@@ -94,7 +94,7 @@ const Header = () => {
                   component={Link}
                   to="/anzsics"
                   value="/anzsics"
-                />
+                /> */}
               </Tabs>
             </Box>
             <Box display="flex">

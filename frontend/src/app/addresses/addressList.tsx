@@ -2,9 +2,15 @@ import { BooleanField, Datagrid, DateField, List, ReferenceField, TextField } fr
 import {
   Box,
   Typography,
+  Grid,
 } from '@mui/material';
+import { OrganisationMenu } from '../organisations/organisationMenu';
 export const AddressList = () => (
-  <div>
+  <Grid container spacing={2}>
+    <Grid item xs={6} sm={2}>
+      <OrganisationMenu />
+    </Grid>
+    <Grid item xs={6} sm={9}>
     <Box><Typography sx={{ fontSize: '28px', fontWeight: '600', paddingTop: '24px', marginBottom: "-20px" }}> Addresses</Typography></Box>
   <List>
     <Datagrid rowClick="edit">
@@ -19,5 +25,8 @@ export const AddressList = () => (
       <ReferenceField source="businessUnitId" reference="business-units" />
     </Datagrid>
     </List>
-    </div>
+    </Grid>
+    <Grid item xs={6} sm={1}>
+    </Grid>
+  </Grid>
 );

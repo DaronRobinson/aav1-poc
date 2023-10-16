@@ -1,7 +1,6 @@
 import { DateInput, Edit, ReferenceArrayInput, ReferenceInput, SimpleForm, TextInput, WrapperField, TextField, ReferenceField, SelectInput, required, NumberInput, ArrayInput, AutocompleteArrayInput, BooleanInput, useGetOne } from 'react-admin';
 import { certificationProgrammes, certificationStages, auditObjectives, auditCriteria, auditType, auditScope } from '@/dataProvider/lists';
 import { AssuranceMenu } from './assuranceMenu';
-import SideMenuLayout from '../../components/sideMenuLayout';
 import TitleBar from '../../components/titleBar';
 import {
   Grid,
@@ -39,9 +38,12 @@ export const AssuranceEdit = () => {
     { id }
   );
 
-  return (<SideMenuLayout Menu={<AssuranceMenu />}>
-    <Box>
-      <TitleBar title="Edit Risk Assessment" itemName={data.name} />
+  return (<Grid container spacing={2}>
+    <Grid item xs={6} sm={2}>
+      <AssuranceMenu />
+    </Grid>
+    <Grid item xs={6} sm={9}>
+      <TitleBar title="Edit Engagement" itemName={data.name} />
       <Edit>
         <SimpleForm >
           <ChangeProgramme />
@@ -151,8 +153,10 @@ export const AssuranceEdit = () => {
         <TextInput source="status" sx={{ width: "100%" }} /> */}
         </SimpleForm>
       </Edit>
-      </Box>
-    </SideMenuLayout>
+    </Grid>
+    <Grid item xs={6} sm={1}>
+    </Grid>
+  </Grid>
   )
 };
 

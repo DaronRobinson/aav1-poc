@@ -2,9 +2,15 @@ import { Datagrid, DateField, EmailField, List, ReferenceField, TextField } from
 import {
   Box,
   Typography,
+  Grid,
 } from '@mui/material';
+import { OrganisationMenu } from '../organisations/organisationMenu';
 export const ContactList = () => (
-  <div>
+  <Grid container spacing={2}>
+    <Grid item xs={6} sm={2}>
+      <OrganisationMenu />
+    </Grid>
+    <Grid item xs={6} sm={9}>
     <Box><Typography sx={{ fontSize: '28px', fontWeight: '600', paddingTop: '30px', marginBottom: "-20px" }}> Contacts</Typography></Box>
   <List>
     <Datagrid rowClick="edit">
@@ -22,5 +28,8 @@ export const ContactList = () => (
       <DateField source="updatedAt" />
     </Datagrid>
     </List>
-    </div>
+         </Grid>
+      <Grid item xs={6} sm={1}>
+      </Grid>
+    </Grid >
 );

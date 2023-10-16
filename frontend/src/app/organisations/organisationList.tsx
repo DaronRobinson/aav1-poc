@@ -3,13 +3,17 @@ import { Datagrid, DateField, List, SimpleList, TextField, ReferenceField, Refer
 import {
   Box,
   Typography,
+  Grid,
 } from '@mui/material';
-
+import { OrganisationMenu } from './organisationMenu';
 import  CustomChipField from '../../components/customChipField';
 
 export const OrganisationList = () => (
-  <div>
-    <Box><Typography sx={{fontSize:'28px', fontWeight:'600', paddingTop:'30px', marginBottom:"-20px"}}> Organisations</Typography></Box>
+  <Grid container spacing={2}>
+    <Grid item xs={6} sm={2}>
+      <OrganisationMenu />
+    </Grid>
+    <Grid item xs={6} sm={9}>    <Box><Typography sx={{fontSize:'28px', fontWeight:'600', paddingTop:'30px', marginBottom:"-20px"}}> Organisations</Typography></Box>
   <List>
     <Datagrid rowClick="edit">
       <TextField source="id" />
@@ -17,8 +21,6 @@ export const OrganisationList = () => (
       <TextField source="legalName" />
       <TextField source="type" />
       <TextField source="highestParentCompany" label="Parent"/>
-      <TextField source="description" />
-        <TextField source="statementOfIntent" />
         <ReferenceManyField label="Contacts" reference="contacts" target="organisationId">
           <SingleFieldList>
             <ChipField source="firstName" />
@@ -31,4 +33,8 @@ export const OrganisationList = () => (
       <DateField source="updatedAt" />
     </Datagrid>
     </List>
-  </div>);
+    </Grid>
+    <Grid item xs={6} sm={1}>
+    </Grid>
+  </Grid>
+  );
