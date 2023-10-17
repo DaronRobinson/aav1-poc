@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_repeating_agenda_items",
+  "info": {
+    "displayName": "AgendaItem",
+    "icon": "apps",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Location": {
+      "type": "string"
+    },
+    "Time": {
+      "type": "time"
+    },
+    "Activity": {
+      "type": "text"
+    },
+    "ResourcesRequired": {
+      "type": "string"
+    },
+    "communicationsMethod": {
+      "type": "enumeration",
+      "enum": [
+        "MS Teams",
+        "Skype",
+        "Google Meet",
+        "Slack",
+        "Other"
+      ],
+      "default": "MS Teams"
+    },
+    "activityDescription": {
+      "type": "richtext"
+    }
+  }
+}

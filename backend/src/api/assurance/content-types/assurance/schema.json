@@ -107,6 +107,15 @@
     },
     "systemOrSoftwareUsed": {
       "type": "string"
+    },
+    "agendas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::agenda.agenda",
+      "mappedBy": "assurance"
+    },
+    "criteria": {
+      "type": "richtext"
     }
   }
 }

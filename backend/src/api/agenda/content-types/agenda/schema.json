@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "agendas",
+  "info": {
+    "singularName": "agenda",
+    "pluralName": "agendas",
+    "displayName": "Agenda"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "requiredResouces": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "remote",
+        "onSite"
+      ]
+    },
+    "assurance": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::assurance.assurance",
+      "inversedBy": "agendas"
+    },
+    "agendaDays": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::agenda-day.agenda-day",
+      "mappedBy": "agenda"
+    }
+  }
+}

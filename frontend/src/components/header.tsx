@@ -36,7 +36,7 @@ const Header = () => {
                 alt="Bosch Logo"
               />
               <Typography component="span" variant="h5">
-                Assurance Demo
+                Assurance Admin 
               </Typography>
             </Box>
             <Box>
