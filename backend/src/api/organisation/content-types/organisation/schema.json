@@ -52,6 +52,18 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::anzsic.anzsic"
+    },
+    "engagements": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::engagement.engagement",
+      "mappedBy": "organisation"
+    },
+    "strategic_analyses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::strategic-analysis.strategic-analysis",
+      "mappedBy": "organisation"
     }
   }
 }

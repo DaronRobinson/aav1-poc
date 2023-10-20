@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aa_assurance_levels",
+  "info": {
+    "singularName": "aa-assurance-level",
+    "pluralName": "aa-assurance-levels",
+    "displayName": "aaAssuranceLevel",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "helpText": {
+      "type": "richtext"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "complete",
+        "approved",
+        "rejected"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "number",
+        "boolean",
+        "email",
+        "phone",
+        "datePicker",
+        "dateTimePicker",
+        "select",
+        "multiSelect",
+        "radioButton"
+      ]
+    },
+    "validation": {
+      "type": "text"
+    },
+    "assurance": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::assurance.assurance"
+    },
+    "notes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::note.note"
+    },
+    "optionSet": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::option-set.option-set"
+    },
+    "references": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reference.reference"
+    }
+  }
+}

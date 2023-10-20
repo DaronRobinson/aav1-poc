@@ -2,8 +2,12 @@
 
 import { Organisation } from '../../../organisation/content-types/organisation/organisation';
 import { Agenda } from '../../../agenda/content-types/agenda/agenda';
+import { Engagement } from '../../../engagement/content-types/engagement/engagement';
+import { StrategicAnalysis } from '../../../strategic-analysis/content-types/strategic-analysis/strategic-analysis';
 import { Organisation_Plain } from '../../../organisation/content-types/organisation/organisation';
 import { Agenda_Plain } from '../../../agenda/content-types/agenda/agenda';
+import { Engagement_Plain } from '../../../engagement/content-types/engagement/engagement';
+import { StrategicAnalysis_Plain } from '../../../strategic-analysis/content-types/strategic-analysis/strategic-analysis';
 import { AdminPanelRelationPropertyModification } from '../../../../common/schemas-to-ts/AdminPanelRelationPropertyModification';
 
 export interface Assurance {
@@ -42,6 +46,8 @@ export interface Assurance {
     systemOrSoftwareUsed?: string;
     agendas: { data: Agenda[] };
     criteria?: string;
+    engagement?: { data: Engagement };
+    strategic_analysis?: { data: StrategicAnalysis };
   };
 }
 export interface Assurance_Plain {
@@ -79,6 +85,8 @@ export interface Assurance_Plain {
   systemOrSoftwareUsed?: string;
   agendas: Agenda_Plain[];
   criteria?: string;
+  engagement?: Engagement_Plain;
+  strategic_analysis?: StrategicAnalysis_Plain;
 }
 
 export interface Assurance_NoRelations {
@@ -116,6 +124,8 @@ export interface Assurance_NoRelations {
   systemOrSoftwareUsed?: string;
   agendas: number[];
   criteria?: string;
+  engagement?: number;
+  strategic_analysis?: number;
 }
 
 export interface Assurance_AdminPanelLifeCycle {
@@ -153,4 +163,6 @@ export interface Assurance_AdminPanelLifeCycle {
   systemOrSoftwareUsed?: string;
   agendas: AdminPanelRelationPropertyModification<Agenda_Plain>;
   criteria?: string;
+  engagement?: AdminPanelRelationPropertyModification<Engagement_Plain>;
+  strategic_analysis?: AdminPanelRelationPropertyModification<StrategicAnalysis_Plain>;
 }

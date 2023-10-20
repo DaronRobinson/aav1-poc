@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_layout_test1s",
+  "info": {
+    "displayName": "Test1",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "intendedUse": {
+      "type": "component",
+      "repeatable": false,
+      "component": "repeating.assurance-field"
+    },
+    "assuranceLevel": {
+      "type": "component",
+      "repeatable": false,
+      "component": "repeating.assurance-field"
+    },
+    "auditDate": {
+      "type": "component",
+      "repeatable": false,
+      "component": "repeating.assurance-field"
+    }
+  }
+}

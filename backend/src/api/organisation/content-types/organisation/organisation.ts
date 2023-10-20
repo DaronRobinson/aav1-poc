@@ -3,9 +3,13 @@
 import { Contact } from '../../../contact/content-types/contact/contact';
 import { Assurance } from '../../../assurance/content-types/assurance/assurance';
 import { Anzsic } from '../../../anzsic/content-types/anzsic/anzsic';
+import { Engagement } from '../../../engagement/content-types/engagement/engagement';
+import { StrategicAnalysis } from '../../../strategic-analysis/content-types/strategic-analysis/strategic-analysis';
 import { Contact_Plain } from '../../../contact/content-types/contact/contact';
 import { Assurance_Plain } from '../../../assurance/content-types/assurance/assurance';
 import { Anzsic_Plain } from '../../../anzsic/content-types/anzsic/anzsic';
+import { Engagement_Plain } from '../../../engagement/content-types/engagement/engagement';
+import { StrategicAnalysis_Plain } from '../../../strategic-analysis/content-types/strategic-analysis/strategic-analysis';
 import { AdminPanelRelationPropertyModification } from '../../../../common/schemas-to-ts/AdminPanelRelationPropertyModification';
 
 export interface Organisation {
@@ -22,6 +26,8 @@ export interface Organisation {
     contacts: { data: Contact[] };
     assurances: { data: Assurance[] };
     anzsicId?: { data: Anzsic };
+    engagements: { data: Engagement[] };
+    strategic_analyses: { data: StrategicAnalysis[] };
   };
 }
 export interface Organisation_Plain {
@@ -37,6 +43,8 @@ export interface Organisation_Plain {
   contacts: Contact_Plain[];
   assurances: Assurance_Plain[];
   anzsicId?: Anzsic_Plain;
+  engagements: Engagement_Plain[];
+  strategic_analyses: StrategicAnalysis_Plain[];
 }
 
 export interface Organisation_NoRelations {
@@ -52,6 +60,8 @@ export interface Organisation_NoRelations {
   contacts: number[];
   assurances: number[];
   anzsicId?: number;
+  engagements: number[];
+  strategic_analyses: number[];
 }
 
 export interface Organisation_AdminPanelLifeCycle {
@@ -67,4 +77,6 @@ export interface Organisation_AdminPanelLifeCycle {
   contacts: AdminPanelRelationPropertyModification<Contact_Plain>;
   assurances: AdminPanelRelationPropertyModification<Assurance_Plain>;
   anzsicId?: AdminPanelRelationPropertyModification<Anzsic_Plain>;
+  engagements: AdminPanelRelationPropertyModification<Engagement_Plain>;
+  strategic_analyses: AdminPanelRelationPropertyModification<StrategicAnalysis_Plain>;
 }

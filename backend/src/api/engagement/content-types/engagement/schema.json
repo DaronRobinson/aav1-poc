@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "engagements",
+  "info": {
+    "singularName": "engagement",
+    "pluralName": "engagements",
+    "displayName": "Engagement",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "assurance": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::assurance.assurance",
+      "inversedBy": "engagement"
+    },
+    "engagementFields": {
+      "type": "component",
+      "repeatable": true,
+      "component": "repeating.assurance-field"
+    },
+    "organisation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organisation.organisation",
+      "inversedBy": "engagements"
+    }
+  }
+}

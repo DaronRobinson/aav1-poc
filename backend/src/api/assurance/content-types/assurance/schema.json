@@ -116,6 +116,18 @@
     },
     "criteria": {
       "type": "richtext"
+    },
+    "engagement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::engagement.engagement",
+      "mappedBy": "assurance"
+    },
+    "strategic_analysis": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::strategic-analysis.strategic-analysis",
+      "mappedBy": "assurance"
     }
   }
 }
