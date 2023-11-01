@@ -12,16 +12,16 @@ export const OrganisationMenu = () => {
       <Menu.ResourceItem name="organisations" />
 
       <Menu.Item
-        to={`/business-units`}
+        to={`/business_units`}
         primaryText="Business Units"
         leftIcon={<ViewListIcon />}
       >
-        <Menu.ResourceItem name="business-units" />
+        <Menu.ResourceItem name="business_units" />
       </Menu.Item>
       <Menu.ResourceItem name="addresses" />
       <Menu.ResourceItem name="contacts" />
 
-      {/* <Menu.Item to={`/organisations/${id}/business-units`} primaryText="Business Units" leftIcon={<LabelIcon />} />
+      {/* <Menu.Item to={`/organisations/${id}/business_units`} primaryText="Business Units" leftIcon={<LabelIcon />} />
     <Menu.Item to={`/organisations/${id}/addresses`} primaryText="Addresses" leftIcon={<LabelIcon />} />
     <Menu.Item to={`/organisations/${id}/contacts`} primaryText="Contacts" leftIcon={<LabelIcon />} /> */}
       <Menu.Item

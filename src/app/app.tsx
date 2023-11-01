@@ -6,7 +6,7 @@ import {
   EditGuesser,
   fetchUtils,
   localStorageStore,
-  CustomRoutes
+  CustomRoutes,
 } from "react-admin";
 import { Route } from "react-router-dom";
 
@@ -27,38 +27,62 @@ import { RiskAssessment } from "./assurances/riskAssessment";
 import { OrgBusinessUnits } from "./organisations/orgBusinessUnits";
 import { OrgAddresses } from "./organisations/orgAddresses";
 import { OrgContacts } from "./organisations/orgContacts";
-import AdminPage  from './admin/page';
-import { Dashboard } from './dashboard/dashboard';
-import './globals.css';
+import AdminPage from "./admin/page";
+import { Dashboard } from "./dashboard/dashboard";
+import "./globals.css";
+import { getDirectusProviders } from "ra-directus";
+import { directusDataProvider } from "ra-directus";
 
 //import { authProvider } from '../../../unused/api/authProvider';
 
 import raStrapiRest from "../dataProvider/ra-strapi-rest";
 const strapiApiUrl = "http://localhost:1337/api";
 
-const httpClient = (url: string, options: any = {}) => {
-  options.headers = options.headers || new Headers({ Accept: "application/json" });
-  options.headers.set("Authorization", `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`);
-  return fetchUtils.fetchJson(url, options);
-};
+const directusApiUrl = "http://localhost:8055";
 
-export const dataProvider = raStrapiRest(strapiApiUrl, httpClient);
+// http: const httpClient = (url: string, options: any = {}) => {
+//   options.headers =
+//     options.headers || new Headers({ Accept: "application/json" });
+//   options.headers.set(
+//     "Authorization",
+//     `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+//   );
+//   return fetchUtils.fetchJson(url, options);
+// };
 
+// export const dataProvider = raStrapiRest(strapiApiUrl, httpClient);
 
+const { authProvider, dataProvider } = getDirectusProviders(
+  directusApiUrl
+  //{
+  //   storage: window.sessionStorage, // Optional, defaults to localStorage
+  //   getIdentityFullName: (user) => user.email, // Optional, defaults to `${user.last_name} ${user.first_name}`
+  // }
+);
 const App = () => (
-  <Admin dataProvider={dataProvider} layout={Layout} dashboard={Dashboard} >
+  <Admin
+    dataProvider={dataProvider}
+    authProvider={authProvider}
+    layout={Layout}
+    dashboard={Dashboard}
+  >
     <Resource
-      name="assurances"
+      name="engagements"
       list={assurances.list}
-      recordRepresentation={(record) => `${record.name}`}>
+      recordRepresentation={(record) => `${record.name}`}
+    >
       <Route path=":id/" element={<AssuranceEdit />} />
       <Route path=":id/agenda" element={<Agenda />} />
       <Route path=":id/strategic-analysis" element={<StrategicAnalysis />} />
       <Route path=":id/site-visit" element={<SiteVisit />} />
       <Route path=":id/risk-assessment" element={<RiskAssessment />} />
     </Resource>
-    <Resource name="organisations" {...organisations} recordRepresentation={(record) => `${record.name}`} >
-      <Route path=":id/business-units" element={<OrgBusinessUnits />} />
+    <Resource
+      name="organisations"
+      {...organisations}
+      recordRepresentation={(record) => `${record.name}`}
+    >
+      <Route path=":id/business_units" element={<OrgBusinessUnits />} />
       <Route path=":id/addresses" element={<OrgAddresses />} />
       <Route path=":id/contacts" element={<OrgContacts />} />
     </Resource>
@@ -66,33 +90,47 @@ const App = () => (
       <Route path="admin" element={<AdminPage />} />
     </CustomRoutes>
     <Resource
-      name="business-units"
+      name="business_units"
       {...businessUnits}
       recordRepresentation="name"
     />
     <Resource
       name="contacts"
       {...contacts}
-      recordRepresentation={(record) => `${record.firstName} ${record.lastName}`}
+      recordRepresentation={(record) =>
+        `${record.first_name} ${record.last_name}`
+      }
     />
-    <Resource
-      name="anzsics"
-      {...anzsics}
-      recordRepresentation="label"
-    />
+    <Resource name="anzsics" {...anzsics} recordRepresentation="label" />
     <Resource
       name="addresses"
       {...addresses}
-      recordRepresentation="streetAddress"
+      recordRepresentation="street_address"
     />
   </Admin>
 );
 
 export default App;
 
+// import { Admin, Resource } from "react-admin";
+// import { getDirectusProviders } from "ra-directus";
+// import products from "./products";
+
+// const { authProvider, dataProvider } = getDirectusProviders(
+//   import.meta.env.VITE_DIRECTUS_URL,
+//   {
+//     storage: window.sessionStorage, // Optional, defaults to localStorage
+//     getIdentityFullName: (user) => user.email, // Optional, defaults to `${user.last_name} ${user.first_name}`
+//   }
+// );
+
+// const App = () => (
+//   <Admin dataProvider={dataProvider} authProvider={authProvider}>
+//     <Resource name="products" {...products} />
+//   </Admin>
+// );
 
 // import KitchenIcon from "@mui/icons-material/Kitchen";
-
 
 // import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -102,8 +140,6 @@ export default App;
 // import { dataProvider } from "./dataProvider";
 // import products from "./products";
 // import tickets from "./tickets";
-
-
 
 // const App = () => (
 //   <Admin

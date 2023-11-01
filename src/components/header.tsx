@@ -1,42 +1,45 @@
-import React from 'react';
-import { Tabs, Tab, Toolbar, AppBar, Box, Typography } from '@mui/material';
-import { Link, matchPath, useLocation } from 'react-router-dom';
-import { UserMenu, Logout, LoadingIndicator } from 'react-admin';
+import React from "react";
+import { Tabs, Tab, Toolbar, AppBar, Box, Typography } from "@mui/material";
+import { Link, matchPath, useLocation } from "react-router-dom";
+import { UserMenu, Logout, LoadingIndicator } from "react-admin";
 
 const Header = () => {
   const location = useLocation();
 
-  let currentPath = '/';
-  if (!!matchPath('/contacts/*', location.pathname)) {
-    currentPath = '/contacts';
-  } else if (!!matchPath('/organisations/*', location.pathname)) {
-    currentPath = '/organisations';
-  } else if (!!matchPath('/assurances/*', location.pathname)) {
-    currentPath = '/assurances';
-  } else if (!!matchPath('/addresses/*', location.pathname)) {
-    currentPath = '/addresses';
-  } else if (!!matchPath('/anzsics/*', location.pathname)) {
-    currentPath = '/anzsics';
-  } else if (!!matchPath('/business-units/*', location.pathname)) {
-    currentPath = '/business-units';
+  let currentPath = "/";
+  if (!!matchPath("/contacts/*", location.pathname)) {
+    currentPath = "/contacts";
+  } else if (!!matchPath("/organisations/*", location.pathname)) {
+    currentPath = "/organisations";
+  } else if (!!matchPath("/assurances/*", location.pathname)) {
+    currentPath = "/assurances";
+  } else if (!!matchPath("/addresses/*", location.pathname)) {
+    currentPath = "/addresses";
+  } else if (!!matchPath("/anzsics/*", location.pathname)) {
+    currentPath = "/anzsics";
+  } else if (!!matchPath("/business_units/*", location.pathname)) {
+    currentPath = "/business_units";
   }
 
   return (
-    <Box component="nav" sx={{ flexGrow: 1}}>
+    <Box component="nav" sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary">
-        <Toolbar variant="dense" sx={{ width: "80%", margin: "5px auto", maxWidth: { xl: 3200 } }}>
+        <Toolbar
+          variant="dense"
+          sx={{ width: "80%", margin: "5px auto", maxWidth: { xl: 3200 } }}
+        >
           <Box flex={1} display="flex" justifyContent="space-between">
             <Box display="flex" alignItems="center">
               <Box
                 component="img"
-                sx={{ marginRight: '1em', height: 30 }}
+                sx={{ marginRight: "1em", height: 30 }}
                 src={
-                  'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
+                  "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
                 }
                 alt="Bosch Logo"
               />
               <Typography component="span" variant="h5">
-                Assurance Admin 
+                Assurance Admin
               </Typography>
             </Box>
             <Box>
@@ -48,28 +51,28 @@ const Header = () => {
               >
                 <Tab
                   sx={{ fontSize: "16px" }}
-                  label={'Dashboard'}
+                  label={"Dashboard"}
                   component={Link}
                   to="/"
                   value="/"
                 />
                 <Tab
                   sx={{ fontSize: "16px" }}
-                  label={'Engagements'}
+                  label={"Engagements"}
                   component={Link}
                   to="/assurances"
                   value="/assurances"
                 />
                 <Tab
                   sx={{ fontSize: "16px" }}
-                  label={'Organisations'}
+                  label={"Organisations"}
                   component={Link}
                   to="/organisations"
                   value="/organisations"
                 />
                 <Tab
                   sx={{ fontSize: "16px" }}
-                  label={'Admin'}
+                  label={"Admin"}
                   component={Link}
                   to="/admin"
                   value="/admin"
@@ -100,7 +103,7 @@ const Header = () => {
             <Box display="flex">
               <LoadingIndicator
                 sx={{
-                  '& .RaLoadingIndicator-loader': {
+                  "& .RaLoadingIndicator-loader": {
                     marginTop: 2,
                   },
                 }}

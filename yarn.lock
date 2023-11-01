@@ -2619,6 +2619,11 @@ jsonexport@^3.2.0:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 keyv@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.3.tgz#00873d2b046df737963157bd04f294ca818c9c25"
@@ -3248,6 +3253,13 @@ ra-data-simple-rest@^4.14.4:
   integrity sha512-s1LBNBSOArT5qcE0bU4NMVV5LCRLbIx6NOFDWxW5CLhLti7PCA6wWzz7bGYb7BPe1QTNjvT/rXuGQ/vixQ12MA==
   dependencies:
     query-string "^7.1.1"
+
+ra-directus@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ra-directus/-/ra-directus-1.1.0.tgz#4f3d8a3a5bdc2c65ab47db11e91d4a25982ded1b"
+  integrity sha512-MWsnUso6DHfuFJ9yG3hrXddamjAvdzEigIAQbRpuABj+Avl8EH8WPtHWdRCoYpXygABs33XrGp7i/2W8neQFGQ==
+  dependencies:
+    jwt-decode "^3.1.2"
 
 ra-i18n-polyglot@^4.14.4:
   version "4.14.4"
