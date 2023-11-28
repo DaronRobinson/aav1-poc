@@ -8,24 +8,27 @@ import {
   useGetOne,
 } from "react-admin";
 import { Box, Typography, Grid } from "@mui/material";
-import { AssuranceMenu } from "./assuranceMenu";
+import { EngagementMenu } from "./engagementMenu";
 import TitleBar from "../../components/titleBar";
 
-export const StrategicAnalysis = () => {
+export const Agenda = () => {
   const { id } = useParams();
-  const { data, isLoading, error, refetch } = useGetOne("assurances", { id });
+  const { data, isLoading, error, refetch } = useGetOne("engagements", { id });
+  console.log(data);
   return (
     <Grid container spacing={2}>
       <Grid item xs={6} sm={2}>
-        <AssuranceMenu />
+        <EngagementMenu />
       </Grid>
       <Grid item xs={6} sm={9}>
-        {" "}
         <Box>
-          <TitleBar title="Edit Strategic Analysis" itemName={data.name} />
+          <TitleBar
+            title="Edit Verification & Validation Agenda"
+            itemName={data && data.name ? data.name : "Agenda"}
+          />
           <Edit>
             <SimpleForm sx={{ padding: "30px 50px" }}>
-              <p>Analysis here</p>
+              <p>Agenda here</p>
             </SimpleForm>
           </Edit>
         </Box>

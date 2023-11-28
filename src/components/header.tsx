@@ -11,8 +11,8 @@ const Header = () => {
     currentPath = "/contacts";
   } else if (!!matchPath("/organisations/*", location.pathname)) {
     currentPath = "/organisations";
-  } else if (!!matchPath("/assurances/*", location.pathname)) {
-    currentPath = "/assurances";
+  } else if (!!matchPath("/engagements/*", location.pathname)) {
+    currentPath = "/engagements";
   } else if (!!matchPath("/addresses/*", location.pathname)) {
     currentPath = "/addresses";
   } else if (!!matchPath("/anzsics/*", location.pathname)) {
@@ -60,8 +60,8 @@ const Header = () => {
                   sx={{ fontSize: "16px" }}
                   label={"Engagements"}
                   component={Link}
-                  to="/assurances"
-                  value="/assurances"
+                  to="/engagements"
+                  value="/engagements"
                 />
                 <Tab
                   sx={{ fontSize: "16px" }}

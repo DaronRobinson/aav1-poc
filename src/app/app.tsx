@@ -2,14 +2,17 @@
 import {
   Admin,
   Resource,
+  addRefreshAuthToDataProvider,
+  addRefreshAuthToAuthProvider,
   ListGuesser,
   EditGuesser,
   fetchUtils,
   localStorageStore,
   CustomRoutes,
 } from "react-admin";
+import {} from "ra-directus";
 import { Route } from "react-router-dom";
-
+import { QueryClient } from "react-query";
 import { Box } from "@mui/material";
 
 import Layout from "@/components/layout";
@@ -18,60 +21,66 @@ import addresses from "./addresses";
 import contacts from "./contacts";
 import businessUnits from "./businessUnits";
 import anzsics from "./anzsics";
-import assurances from "./assurances";
-import { AssuranceEdit } from "./assurances/assuranceEdit";
-import { Agenda } from "./assurances/agenda";
-import { StrategicAnalysis } from "./assurances/strategicAnalysis";
-import { SiteVisit } from "./assurances/siteVisit";
-import { RiskAssessment } from "./assurances/riskAssessment";
+import engagements from "./engagements";
+import { EngagementEdit } from "./engagements/engagementEdit";
+import { Agenda } from "./engagements/agenda";
+import { StrategicAnalysis } from "./engagements/strategicAnalysis";
+import { SiteVisit } from "./engagements/siteVisit";
+import { RiskAssessment } from "./engagements/riskAssessment";
 import { OrgBusinessUnits } from "./organisations/orgBusinessUnits";
 import { OrgAddresses } from "./organisations/orgAddresses";
 import { OrgContacts } from "./organisations/orgContacts";
 import AdminPage from "./admin/page";
 import { Dashboard } from "./dashboard/dashboard";
 import "./globals.css";
-import { getDirectusProviders } from "ra-directus";
-import { directusDataProvider } from "ra-directus";
-
-//import { authProvider } from '../../../unused/api/authProvider';
-
-import raStrapiRest from "../dataProvider/ra-strapi-rest";
-const strapiApiUrl = "http://localhost:1337/api";
-
+import {
+  directusAuthProvider,
+  directusRefreshAuthToken,
+  getDirectusProviders,
+} from "ra-directus";
+import { directusDataProvider } from "@/dataProvider/directusDataProvider";
 const directusApiUrl = "http://localhost:8055";
+const refreshAuthToken = directusRefreshAuthToken(directusApiUrl);
 
-// http: const httpClient = (url: string, options: any = {}) => {
-//   options.headers =
-//     options.headers || new Headers({ Accept: "application/json" });
-//   options.headers.set(
-//     "Authorization",
-//     `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-//   );
-//   return fetchUtils.fetchJson(url, options);
-// };
+const { authProvider } = getDirectusProviders(directusApiUrl, {
+  getIdentityFullName: (user) => user.first_name + "  " + user.last_name, // Optional, defaults to `${user.last_name} ${user.first_name}`
+});
 
-// export const dataProvider = raStrapiRest(strapiApiUrl, httpClient);
+// const authProvider = directusAuthProvider(directusApiUrl);
+// const dataProvider = directusDataProvider(directusApiUrl);
 
-const { authProvider, dataProvider } = getDirectusProviders(
-  directusApiUrl
-  //{
-  //   storage: window.sessionStorage, // Optional, defaults to localStorage
-  //   getIdentityFullName: (user) => user.email, // Optional, defaults to `${user.last_name} ${user.first_name}`
-  // }
+const authProviderRefresh = addRefreshAuthToAuthProvider(
+  authProvider,
+  refreshAuthToken
 );
+
+const dataProvider = addRefreshAuthToDataProvider(
+  directusDataProvider(directusApiUrl),
+  refreshAuthToken
+);
+
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       staleTime: 10 * 1000, // 10 seconds
+//     },
+//   },
+// });
+
 const App = () => (
   <Admin
+    // queryClient={queryClient}
     dataProvider={dataProvider}
-    authProvider={authProvider}
+    authProvider={authProviderRefresh}
     layout={Layout}
     dashboard={Dashboard}
   >
     <Resource
       name="engagements"
-      list={assurances.list}
+      list={engagements.list}
       recordRepresentation={(record) => `${record.name}`}
     >
-      <Route path=":id/" element={<AssuranceEdit />} />
+      <Route path=":id/" element={<EngagementEdit />} />
       <Route path=":id/agenda" element={<Agenda />} />
       <Route path=":id/strategic-analysis" element={<StrategicAnalysis />} />
       <Route path=":id/site-visit" element={<SiteVisit />} />
@@ -102,6 +111,8 @@ const App = () => (
       }
     />
     <Resource name="anzsics" {...anzsics} recordRepresentation="label" />
+    <Resource name="field_status" list={ListGuesser} edit={EditGuesser} />
+    <Resource name="notes" list={ListGuesser} edit={EditGuesser} />
     <Resource
       name="addresses"
       {...addresses}

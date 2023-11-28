@@ -1,149 +1,280 @@
-import { DateInput, Edit, ReferenceArrayInput, ReferenceInput, SimpleForm, TextInput, WrapperField, TextField, ReferenceField, SelectInput, required, NumberInput, ArrayInput, AutocompleteArrayInput, BooleanInput, useGetOne } from 'react-admin';
-import { certificationProgrammes, certificationStages, auditObjectives, auditCriteria, auditType, auditScope } from '@/dataProvider/lists';
-import { AssuranceMenu } from './assuranceMenu';
-import TitleBar from '../../components/titleBar';
 import {
-  Grid,
-  Divider,
-  Box,
-  Typography,
-} from '@mui/material';
-import { useWatch, useFormContext } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+  DateInput,
+  Edit,
+  ReferenceArrayInput,
+  ReferenceInput,
+  SimpleForm,
+  TextInput,
+  WrapperField,
+  TextField,
+  ReferenceField,
+  SelectInput,
+  required,
+  NumberInput,
+  ArrayInput,
+  AutocompleteArrayInput,
+  BooleanInput,
+  useGetOne,
+  useDataProvider,
+  useGetList,
+  useGetIdentity,
+  useGetManyReference,
+  useRecordContext,
+} from "react-admin";
+import {
+  certificationProgrammes,
+  certificationStages,
+  auditObjectives,
+  auditCriteria,
+  auditType,
+  auditScope,
+} from "@/dataProvider/lists";
+import { AssuranceFormField } from "@/components/assuranceFormFields";
+import { EngagementMenu } from "./engagementMenu";
+import TitleBar from "../../components/titleBar";
+import { Grid, Divider, Box, Typography } from "@mui/material";
+import { useWatch, useFormContext } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { Field, FieldState, FieldNote } from "@/types/assuranceFieldTypes";
 
 const ChangeProgramme = () => {
-  const programme = useWatch({ name: 'certificationProgramme' });
-  let objectives = auditObjectives[0]['id']
-  let criteria = auditCriteria[0]['id']
-  let scope = auditScope[0]['id']
+  const programme = useWatch({ name: "certificationProgramme" });
+  let objectives = auditObjectives[0]["id"];
+  let criteria = auditCriteria[0]["id"];
+  let scope = auditScope[0]["id"];
 
-  if (programme === 'verification-only') {
-    objectives = auditObjectives[1]['id']
-    criteria = auditCriteria[1]['id']
-    scope = auditScope[1]['id']
+  if (programme === "verification-only") {
+    objectives = auditObjectives[1]["id"];
+    criteria = auditCriteria[1]["id"];
+    scope = auditScope[1]["id"];
   }
-  useFormContext().setValue('auditObjectives', objectives);
-  useFormContext().setValue('auditCriteria', criteria);
-  useFormContext().setValue('scope', scope);
-
+  useFormContext().setValue("auditObjectives", objectives);
+  useFormContext().setValue("auditCriteria", criteria);
+  useFormContext().setValue("scope", scope);
   return null;
 };
 
+export const EngagementEdit = () => {
+  const { id } = useParams(); //TODO - figure out how to access useRecordContext inside this sideBarLayout
+  const { data, isLoading } = useGetOne("engagements", { id });
+  let demoFieldStates = undefined;
+  let demoFieldNotes = undefined;
+  let demoField = undefined;
 
-
-export const AssuranceEdit = () => {
-  const { id } = useParams();//TODO - figure out how to access useRecordContext inside this sideBarLayout
-  const { data, isLoading, error, refetch } = useGetOne(
-    'assurances',
-    { id }
+  const dataProvider = useDataProvider();
+  const fields = useQuery(["fields", "getFields"], () =>
+    dataProvider.getFields("engagements")
   );
 
-  return (<Grid container spacing={2}>
-    <Grid item xs={6} sm={2}>
-      <AssuranceMenu />
-    </Grid>
-    <Grid item xs={6} sm={9}>
-      <TitleBar title="Edit Engagement" itemName={data.name} />
-      <Edit>
-        <SimpleForm >
-          <ChangeProgramme />
+  const { data: field_states } = useGetManyReference(
+    "field_status",
+    {
+      target: "engagement_id",
+      id: data?.id,
+    },
+    { enabled: !isLoading && data && data.id !== undefined }
+  );
 
-          <WrapperField >
-            <Box sx={{ fontSize: "15px" }}>ID: <TextField source="id" label="ID" /></Box>
-            <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>Organisation: <ReferenceField source="organisationId" reference="organisations" /></Box>
-          </WrapperField>
-          <Typography variant="h5" sx={{ paddingTop: '10px' }}>Programme Details</Typography>
-          <TextInput source="name" sx={{ width: "100%" }} />
-          <Grid container spacing={2}>
-            <Grid item xs={6} sm={3}>
-              <SelectInput
-                source="certificationProgramme"
-                choices={certificationProgrammes}
+  const { data: notes } = useGetManyReference(
+    "notes",
+    {
+      target: "engagement_id",
+      id: data?.id,
+    },
+    { enabled: !isLoading && data && data.id !== undefined }
+  );
+
+  if (!field_states || !data || !fields || !notes) return null;
+
+  demoFieldStates = field_states?.filter(
+    (field_state: FieldState) => field_state.field === "mandatory_activities"
+  );
+
+  demoField = fields.data.data?.find(
+    (field: Field) => field.field === "mandatory_activities"
+  );
+
+  demoFieldNotes = notes?.filter(
+    (note: FieldNote) => note.field === "mandatory_activities"
+  );
+
+  //console.log("demoField", demoField);
+  return (
+    (data && demoField !== undefined && (
+      <Grid container spacing={2}>
+        <Grid item xs={6} sm={2}>
+          <EngagementMenu />
+        </Grid>
+        <Grid item xs={6} sm={9}>
+          <TitleBar title="Edit Engagement" itemName={data.name} />
+          <Edit>
+            <SimpleForm>
+              <ChangeProgramme />
+
+              <WrapperField>
+                <Box sx={{ fontSize: "15px" }}>
+                  ID: <TextField source="id" label="ID" />
+                </Box>
+                <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>
+                  Organisation:{" "}
+                  <ReferenceField
+                    source="organisationId"
+                    reference="organisations"
+                  />
+                </Box>
+              </WrapperField>
+              <Typography variant="h5" sx={{ paddingTop: "10px" }}>
+                Programme Details
+              </Typography>
+              <TextInput source="name" sx={{ width: "100%" }} />
+              <Grid container spacing={2}>
+                <Grid item xs={6} sm={4}>
+                  <SelectInput
+                    source="certificationProgramme"
+                    choices={certificationProgrammes}
+                    fullWidth
+                    validate={required()}
+                  />
+                </Grid>
+                <Grid item xs={6} sm={4}>
+                  <SelectInput
+                    source="stageOfCertificationInProgramme"
+                    choices={certificationStages}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={6} sm={4}>
+                  <SelectInput
+                    source="auditType"
+                    choices={auditType}
+                    fullWidth
+                  />
+                </Grid>
+                {/* <Grid item xs={6} sm={3}>
+                <DateInput source="auditDate" fullWidth />
+              </Grid> */}
+              </Grid>
+              <Grid container spacing={2}>
+                <Grid item xs={6} sm={6}>
+                  <TextInput
+                    source="auditObjectives"
+                    fullWidth
+                    multiline
+                    className="plainInput"
+                  />
+                </Grid>
+                <Grid item xs={6} sm={6}>
+                  <TextInput
+                    source="scope"
+                    fullWidth
+                    multiline
+                    className="plainInput"
+                  />
+                </Grid>
+              </Grid>
+              <TextInput
+                source="auditCriteria"
                 fullWidth
-                validate={required()}
+                multiline
+                className="plainInput"
               />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <SelectInput
-                source="stageOfCertificationInProgramme"
-                choices={certificationStages}
-                fullWidth
+              <AssuranceFormField
+                field={demoField}
+                fieldStates={demoFieldStates}
+                fieldNotes={demoFieldNotes}
+                type="textArea"
               />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <SelectInput
-                source="auditType"
-                choices={auditType}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <DateInput source="auditDate" fullWidth />
-            </Grid>
 
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={6} sm={6}>
-              <TextInput source="auditObjectives" fullWidth multiline className="plainInput" />
-            </Grid>
-            <Grid item xs={6} sm={6}>
-              <TextInput source="scope" fullWidth multiline className="plainInput" />
-            </Grid>
-          </Grid>
-          <TextInput source="auditCriteria" fullWidth multiline className="plainInput" />
-      
-          <Typography variant="h5" sx={{ paddingTop: '30px' }}>Reporting Period</Typography>
+              {/* <Typography variant="h5" sx={{ paddingTop: "30px" }}>
+              Reporting Period
+            </Typography>
 
-          <Grid container spacing={2}>
-            <Grid item xs={6} sm={3}>
-              <DateInput source="reportingBaseYearStartDate" fullWidth />
+            <Grid container spacing={2}>
+              <Grid item xs={6} sm={3}>
+                <DateInput source="reportingBaseYearStartDate" fullWidth />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <DateInput source="reportingBaseYearEndDate" fullWidth />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <DateInput source="reportingYearStartDate" fullWidth />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <DateInput source="reportingYearEndDate" fullWidth />
+              </Grid>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <DateInput source="reportingBaseYearEndDate" fullWidth />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <DateInput source="reportingYearStartDate" fullWidth />
-            </Grid>
-            <Grid item xs={6} sm={3}>
-              <DateInput source="reportingYearEndDate" fullWidth />
-            </Grid>
-          </Grid>
-          <Typography variant="h5" sx={{ paddingTop: '30px' }}>Assurance Details</Typography>
-          <TextInput source="geographicalBoundaries" sx={{ width: "100%" }} />
-          <TextInput source="typeOfGHG" label="Type of GHG" sx={{ width: "100%" }} />
-          <AutocompleteArrayInput source="assuranceLevels" sx={{ width: "100%" }} />
+            <Typography variant="h5" sx={{ paddingTop: "30px" }}>
+              Assurance Details
+            </Typography>
+            <TextInput source="geographicalBoundaries" sx={{ width: "100%" }} />
+            <TextInput
+              source="typeOfGHG"
+              label="Type of GHG"
+              sx={{ width: "100%" }}
+            />
+            <AutocompleteArrayInput
+              source="assuranceLevels"
+              sx={{ width: "100%" }}
+            />
 
-          <Grid container spacing={2}>
-      
-            <Grid item xs={6} sm={3}>
-              <NumberInput source="materialityMandatory" label="Mandatory Materiality Threshold" sx={{ width: "100%" }} />
+            <Grid container spacing={2}>
+              <Grid item xs={6} sm={3}>
+                <NumberInput
+                  source="materialityMandatory"
+                  label="Mandatory Materiality Threshold"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <NumberInput
+                  source="materialitySupplyOptional"
+                  label="Materiality Threshold: Supply/Optional"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+              <Grid item xs={4} sm={3}>
+                <TextInput
+                  source="consolidationMethod"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+              <Grid item xs={4} sm={3}>
+                <BooleanInput
+                  source="isConsolidationMethodChangeApproved"
+                  label="Consolidation Change Approved?"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <NumberInput source="materialitySupplyOptional" label="Materiality Threshold: Supply/Optional" sx={{ width: "100%" }} />
-            </Grid>
-            <Grid item xs={4} sm={3}>
-              <TextInput source="consolidationMethod" sx={{ width: "100%" }} />
-            </Grid>
-            <Grid item xs={4} sm={3}>
-              <BooleanInput source="isConsolidationMethodChangeApproved" label="Consolidation Change Approved?" sx={{ width: "100%" }} />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={4} sm={3}>
-              <TextInput source="systemOrSoftwareUsed" sx={{ width: "100%" }} />
-            </Grid>
-            <Grid item xs={4} sm={6}>
-              <TextInput source="systemOrSoftwareComment" sx={{ width: "100%" }} />
-            </Grid>
-      
-            <Grid item xs={4} sm={3}>
-              <BooleanInput source="isReportingMethodAppropriate" label="Reporting Method Appropriate?" sx={{ width: "100%" }} />
-            </Grid>
-          </Grid>
-          <Typography variant="h5" sx={{ paddingTop: '30px' }}>Verification Details</Typography>
-          <h5>Auditor details go here</h5>
+            <Grid container spacing={2}>
+              <Grid item xs={4} sm={3}>
+                <TextInput
+                  source="systemOrSoftwareUsed"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+              <Grid item xs={4} sm={6}>
+                <TextInput
+                  source="systemOrSoftwareComment"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
 
-          {/* <ReferenceArrayInput source="excludedBusinessUnitIds" reference="excludedBusinessUnits" ><TextInput source="id" sx={{ width: "100%" }} /></ReferenceArrayInput>
+              <Grid item xs={4} sm={3}>
+                <BooleanInput
+                  source="isReportingMethodAppropriate"
+                  label="Reporting Method Appropriate?"
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+            </Grid>
+            <Typography variant="h5" sx={{ paddingTop: "30px" }}>
+              Verification Details
+            </Typography>
+            <h5>Auditor details go here</h5> */}
+
+              {/* <ReferenceArrayInput source="excludedBusinessUnitIds" reference="excludedBusinessUnits" ><TextInput source="id" sx={{ width: "100%" }} /></ReferenceArrayInput>
         <TextInput source="inventoryCompilationProcess" sx={{ width: "100%" }} />
         <TextInput source="quantificationApproach" sx={{ width: "100%" }} />
         <TextInput source="statementOfIntent" sx={{ width: "100%" }} />
@@ -151,17 +282,14 @@ export const AssuranceEdit = () => {
         <TextInput source="excludeEmissionSources" sx={{ width: "100%" }} />
         <TextInput source="executiveSummary" sx={{ width: "100%" }} />
         <TextInput source="status" sx={{ width: "100%" }} /> */}
-        </SimpleForm>
-      </Edit>
-    </Grid>
-    <Grid item xs={6} sm={1}>
-    </Grid>
-  </Grid>
-  )
+            </SimpleForm>
+          </Edit>
+        </Grid>
+        <Grid item xs={6} sm={1}></Grid>
+      </Grid>
+    )) || <p>fail</p>
+  );
 };
-
-
-
 
 /********************** Company **************************/
 
@@ -255,11 +383,6 @@ export const AssuranceEdit = () => {
 //     </Form>
 //   </Edit>
 // );
-
-
-
-
-
 
 /********************** CompanyAside **************************/
 
@@ -360,9 +483,6 @@ export const AssuranceEdit = () => {
 //   );
 // };
 
-
-
-
 /********************** Contacts **************************/
 
 // import * as React from 'react';
@@ -406,7 +526,6 @@ export const AssuranceEdit = () => {
 //     </Box>
 //   );
 // };
-
 
 // import * as React from 'react';
 // import {
@@ -545,11 +664,7 @@ export const AssuranceEdit = () => {
 //   );
 // };
 
-
-
-
 /********************** ContactInputs **************************/
-
 
 // import * as React from 'react';
 // import {
@@ -594,12 +709,7 @@ export const AssuranceEdit = () => {
 
 // const Spacer = () => <Box width={20} component="span" />;
 
-
-
-
-
 /********************** Taglist **************************/
-
 
 // import * as React from 'react';
 // import {

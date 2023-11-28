@@ -6,6 +6,14 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --link-color: #1976d2;
+  --grey-color: #ccc;
+  --approved-rgb: 68, 153, 119;
+  --investigate-rgb: 204, 153, 204;
+  --client-rgb: 153, 102, 0;
+  --reviewed-rgb: 0, 153, 00;
+  --rejected-rgb: 204, 0, 0;
+  --remove-rgb: 204, 204, 204;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,12 +28,162 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
+.formField {
+  width: 100%;
+}
 
-.plainInput div{
+.plainInput div {
   background-color: white !important;
-  border:0 !important;
+  border: 0 !important;
 }
 
 .plainInput div::before {
   border: 0 !important;
+}
+
+.standardInput div {
+  background-color: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+  padding: 12px 10px;
+  width: 100%;
+  height: 62px !important;
+}
+
+.standardInput.multiline div {
+  height: auto !important;
+}
+.noteInput div {
+  background-color: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+  padding: 12px 10px;
+  width: 100%;
+  height: 400px !important;
+}
+
+.noteInput textarea {
+  height: 400px !important;
+}
+
+.standardInput textarea {
+  height: 70px !important;
+}
+
+.standardInput div:before {
+  border: 0 !important;
+}
+
+.standardInput.approved div {
+  border: 1px solid rgb(var(--approved-rgb)) !important;
+  background-color: rgba(var(--approved-rgb), 0.05) !important;
+}
+
+.standardInput.investigate div {
+  border: 1px solid rgb(var(--investigate-rgb)) !important;
+  background-color: rgba(var(--investigate-rgb), 0.1) !important;
+}
+
+.standardInput.client div {
+  border: 1px solid rgb(var(--client-rgb)) !important;
+  background-color: rgba(var(--client-rgb), 0.1) !important;
+}
+
+.standardInput.reviewed div {
+  border: 1px solid rgb(var(--reviewed-rgb)) !important;
+  background-color: rgba(var(--reviewed-rgb), 0.1) !important;
+}
+
+.standardInput.rejected div {
+  border: 1px solid rgb(var(--rejected-rgb)) !important;
+  background-color: rgba(var(--rejected-rgb), 0.1) !important;
+}
+
+.standardInput.remove div {
+  border: 1px solid rgb(var(--remove-rgb)) !important;
+  background-color: white !important;
+}
+
+.inputIcon,
+button.inputIcon {
+  color: #ccc;
+}
+
+button.inputIcon.iconButton {
+  padding: 0px !important;
+}
+
+button.inputIcon.iconButton.highlight {
+  color: #1976d2 !important;
+}
+
+.inputIcon.help:hover,
+.inputIcon.reference:hover,
+button.inputIcon.flag:hover {
+  color: #1976d2;
+}
+
+.inputIcon.finding .iconButton:hover {
+  color: #cc7700;
+}
+
+.inputIcon.note .iconButton:hover {
+  color: #1976d2 !important;
+}
+
+.helpText {
+  font-size: 24px !important;
+}
+
+.referenceAccordian {
+  border: 0 !important;
+  background-color: transparent !important;
+}
+
+.referenceAccordian .referenceIcon {
+  min-height: 27px !important;
+  padding: 0 !important;
+}
+
+.referenceAccordian .referenceIcon div {
+  margin: 0 !important;
+}
+.referenceData {
+  background-color: #f6fcff;
+}
+.referenceAccordian .referenceIcon.active {
+  color: #1976d2;
+}
+
+.buttonIconWrapper {
+  min-width: 24px !important;
+  padding: 0px !important;
+}
+
+.flagIcon {
+  margin-right: 8px;
+}
+
+.flagIcon.investigate {
+  color: rgb(var(--investigate-rgb));
+}
+
+.flagIcon.client {
+  color: rgb(var(--client-rgb));
+}
+
+.flagIcon.approved {
+  color: rgb(var(--approved-rgb));
+}
+
+.flagIcon.reviewed {
+  color: rgb(var(--reviewed-rgb));
+}
+
+.flagIcon.rejected {
+  color: rgb(var(--rejected-rgb));
+}
+
+.flagIcon.remove {
+  color: rgb(var(--remove-rgb));
 }
