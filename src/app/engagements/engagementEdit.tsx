@@ -124,7 +124,7 @@ export const EngagementEdit = () => {
                   />
                 </Box>
               </WrapperField>
-              <Typography variant="h5" sx={{ paddingTop: "10px" }}>
+              {/* <Typography variant="h5" sx={{ paddingTop: "10px" }}>
                 Programme Details
               </Typography>
               <TextInput source="name" sx={{ width: "100%" }} />
@@ -150,12 +150,12 @@ export const EngagementEdit = () => {
                     choices={auditType}
                     fullWidth
                   />
-                </Grid>
-                {/* <Grid item xs={6} sm={3}>
+                </Grid> */}
+              {/* <Grid item xs={6} sm={3}>
                 <DateInput source="auditDate" fullWidth />
               </Grid> */}
-              </Grid>
-              <Grid container spacing={2}>
+              {/* </Grid> */}
+              {/* <Grid container spacing={2}>
                 <Grid item xs={6} sm={6}>
                   <TextInput
                     source="auditObjectives"
@@ -172,13 +172,13 @@ export const EngagementEdit = () => {
                     className="plainInput"
                   />
                 </Grid>
-              </Grid>
-              <TextInput
+              </Grid> */}
+              {/* <TextInput
                 source="auditCriteria"
                 fullWidth
                 multiline
                 className="plainInput"
-              />
+              /> */}
               <AssuranceFormField
                 field={demoField}
                 fieldStates={demoFieldStates}

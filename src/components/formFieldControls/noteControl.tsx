@@ -28,6 +28,9 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import ChatIcon from "@mui/icons-material/Chat";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+
 import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAltOutlined";
 import Save from "@mui/icons-material/Save";
 import { FieldContext } from "../assuranceFormFieldContext";
@@ -60,7 +63,7 @@ const Container = styled(Box)((props) => ({
   borderColor: `${(props: any) => getColor(props)}`,
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
-  color: "#bdbdbd",
+  color: "#cecece",
   outline: "none",
   transition: "border 0.24s ease-in-out",
 }));
@@ -160,8 +163,9 @@ export default function NoteControl({ type }: { type: string }) {
         onClick={() => setOpen(true)}
       >
         {type == "note" && !hasNote && <ChatBubbleOutlineOutlinedIcon />}
-        {type == "note" && hasNote && <ChatOutlinedIcon />}
-        {type == "finding" && <ReportProblemOutlinedIcon />}
+        {type == "note" && hasNote && <ChatIcon />}
+        {type == "finding" && !hasNote && <ReportProblemOutlinedIcon />}
+        {type == "finding" && hasNote && <ReportProblemIcon />}
       </IconButton>
       <Dialog
         open={open}

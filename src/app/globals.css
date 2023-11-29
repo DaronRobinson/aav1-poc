@@ -109,12 +109,16 @@ button.inputIcon {
   color: #ccc;
 }
 
-button.inputIcon.iconButton {
+button.iconButton {
   padding: 0px !important;
 }
 
-button.inputIcon.iconButton.highlight {
-  color: #1976d2 !important;
+.inputIcon.note button.iconButton.highlight {
+  color: #69c !important;
+}
+
+.inputIcon.finding button.iconButton.highlight {
+  color: #cc7700 !important;
 }
 
 .inputIcon.help:hover,

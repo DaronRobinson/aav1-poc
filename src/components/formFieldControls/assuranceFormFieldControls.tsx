@@ -130,6 +130,16 @@ export default function AssuranceFormFieldControls() {
 
       <AccordionDetails className="referenceData">
         <Typography>{fieldData.meta.options.reference_data}</Typography>
+        <Typography sx={{ fontWeight: 700, paddingTop: "20px" }}>
+          More information:&nbsp;
+          <a
+            style={{ color: "#36c" }}
+            href={fieldData.meta.options.reference_data_url}
+            target="_blank"
+          >
+            {fieldData.meta.options.reference_data_url}
+          </a>
+        </Typography>
       </AccordionDetails>
     </Accordion>
   );
