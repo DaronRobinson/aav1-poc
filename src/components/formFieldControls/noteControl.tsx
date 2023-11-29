@@ -13,6 +13,9 @@ import {
   ReferenceInput,
   useGetIdentity,
   TextInput,
+  SelectInput,
+  FileInput,
+  FileField,
   CreateBase,
   SaveButton,
   useRefresh,
@@ -130,6 +133,8 @@ export default function NoteControl({ type }: { type: string }) {
           engagement_id: engagement.id,
           field: fieldData.field,
           message: data.message,
+          comments: data.comments,
+          finding_type: data.finding_type,
           type: type,
         },
       },
@@ -188,15 +193,51 @@ export default function NoteControl({ type }: { type: string }) {
           )}
 
           <DialogContent>
-            <TextInput
-              source="message"
-              autoFocus
-              label={false}
-              className="noteInput"
-              fullWidth
-              multiline
-            />
-            <StyledDropzone />
+            {type == "finding" && (
+              <>
+                <SelectInput
+                  source="finding_type"
+                  label="Finding Type"
+                  choices={[
+                    { id: "NCR", name: "Major Non-Conformance" },
+                    { id: "mNCR", name: "Minor Non-Conformance" },
+                    { id: "OBS", name: "Observation" },
+                    { id: "RFI", name: "Request for Information" },
+                    { id: "FFAV", name: "Fact Found After Verification" },
+                  ]}
+                />
+                <TextInput
+                  source="message"
+                  autoFocus
+                  label="Issue"
+                  className="noteInput"
+                  fullWidth
+                  multiline
+                />
+                <TextInput
+                  source="comments"
+                  autoFocus
+                  label="Comments"
+                  className="shortNoteInput"
+                  fullWidth
+                  multiline
+                />
+              </>
+            )}
+
+            {type == "note" && (
+              <TextInput
+                source="message"
+                autoFocus
+                label={false}
+                className="noteInput"
+                fullWidth
+                multiline
+              />
+            )}
+            <FileInput source="attachments">
+              <FileField source="src" title="title" />
+            </FileInput>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
