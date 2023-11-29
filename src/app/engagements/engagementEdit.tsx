@@ -179,12 +179,14 @@ export const EngagementEdit = () => {
                 multiline
                 className="plainInput"
               /> */}
-              <AssuranceFormField
-                field={demoField}
-                fieldStates={demoFieldStates}
-                fieldNotes={demoFieldNotes}
-                type="textArea"
-              />
+              <Box sx={{ marginTop: "5em" }}>
+                <AssuranceFormField
+                  field={demoField}
+                  fieldStates={demoFieldStates}
+                  fieldNotes={demoFieldNotes}
+                  type="textArea"
+                />
+              </Box>
 
               {/* <Typography variant="h5" sx={{ paddingTop: "30px" }}>
               Reporting Period
@@ -282,6 +284,23 @@ export const EngagementEdit = () => {
         <TextInput source="excludeEmissionSources" sx={{ width: "100%" }} />
         <TextInput source="executiveSummary" sx={{ width: "100%" }} />
         <TextInput source="status" sx={{ width: "100%" }} /> */}
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <Box
+                  component="img"
+                  sx={{
+                    marginRight: "1em",
+                    height: 60,
+                    marginTop: "5em",
+                    float: "right",
+                  }}
+                  src={"/image.gif"}
+                  alt="Bosch Logo"
+                />
+              </Box>
             </SimpleForm>
           </Edit>
         </Grid>

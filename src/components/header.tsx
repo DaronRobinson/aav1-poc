@@ -32,6 +32,12 @@ const Header = () => {
             <Box display="flex" alignItems="center">
               <Box
                 component="img"
+                sx={{ marginRight: "1em", height: 120 }}
+                src={"/welcome.gif"}
+                alt="Bosch Logo"
+              />
+              {/* <Box
+                component="img"
                 sx={{ marginRight: "1em", height: 30 }}
                 src={
                   "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
@@ -40,7 +46,7 @@ const Header = () => {
               />
               <Typography component="span" variant="h5">
                 Assurance Admin
-              </Typography>
+              </Typography> */}
             </Box>
             <Box>
               <Tabs

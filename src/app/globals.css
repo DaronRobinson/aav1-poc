@@ -23,9 +23,21 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+html {
+  font-family: "Comic Sans MS", "Comic Sans", cursive !important;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: url("/mocloud.jpg");
+}
+
+body > div {
+  background: transparent !important;
+}
+
+header {
+  background-color: #c06 !important;
 }
 
 .formField {
@@ -57,13 +69,26 @@ body {
   background-color: white !important;
   border: 1px solid #ccc !important;
   border-radius: 4px;
-  padding: 12px 10px;
   width: 100%;
   height: 400px !important;
 }
 
 .noteInput textarea {
-  height: 400px !important;
+  height: 360px !important;
+  padding: 30px 10px !important;
+}
+
+.shortNoteInput div {
+  background-color: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+  width: 100%;
+  height: 150px !important;
+}
+
+.shortNoteInput textarea {
+  height: 120px !important;
+  padding: 30px 10px !important;
 }
 
 .standardInput textarea {
