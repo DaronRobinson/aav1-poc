@@ -1,31 +1,22 @@
 import React, { useState } from "react";
-import {
-  useCreate,
-  useGetList,
-  useRecordContext,
-  useGetIdentity,
-  useRefresh,
-} from "react-admin";
+import { useCreate, useGetList, useRecordContext, useGetIdentity, useRefresh } from "react-admin";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import OutlinedFlagIcon from "@mui/icons-material/OutlinedFlag";
 import FlagIcon from "@mui/icons-material/Flag";
-import { FieldContext } from "../assuranceFormFieldContext";
+import { FieldContext } from "../assuranceFormFields";
 import { Field, FieldState } from "../../types/assuranceFieldTypes";
 
 export default function FlagControl() {
   const refresh = useRefresh();
-  const { fieldData, fieldSettings, fieldStates } =
-    React.useContext(FieldContext);
+  const { fieldData, fieldSettings, fieldStates } = React.useContext(FieldContext);
   const engagement = useRecordContext();
   const user = useGetIdentity();
 
   if (!fieldStates) return null;
 
-  const userFieldStates = fieldStates?.filter(
-    (field_state: FieldState) => field_state.user_id === user.identity?.id
-  );
+  const userFieldStates = fieldStates?.filter((field_state: FieldState) => field_state.user_id === user.identity?.id);
 
   if (userFieldStates) {
     userFieldStates.sort((a: FieldState, b: FieldState) => {
@@ -75,21 +66,13 @@ export default function FlagControl() {
     <>
       {fieldData.meta != undefined && (
         <>
-          <Button
-            className="buttonIconWrapper inputIcon flag"
-            onClick={handleClick}
-            aria-title="Flag this field"
-          >
-            {(fieldSettings.flag === "reviewed" ||
-              fieldSettings.flag === "rejected") && (
+          <Button className="buttonIconWrapper inputIcon flag" onClick={handleClick} aria-title="Flag this field">
+            {(fieldSettings.flag === "reviewed" || fieldSettings.flag === "rejected") && (
               <FlagIcon className={`flagIcon ${fieldSettings.flag}`} />
             )}
-            {fieldSettings.flag !== "reviewed" &&
-              fieldSettings.flag !== "rejected" && (
-                <OutlinedFlagIcon
-                  className={`flagIcon ${fieldSettings.flag}`}
-                />
-              )}
+            {fieldSettings.flag !== "reviewed" && fieldSettings.flag !== "rejected" && (
+              <OutlinedFlagIcon className={`flagIcon ${fieldSettings.flag}`} />
+            )}
           </Button>
           <Menu
             anchorEl={anchorEl}

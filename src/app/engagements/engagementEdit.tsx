@@ -63,9 +63,7 @@ export const EngagementEdit = () => {
   let demoField = undefined;
 
   const dataProvider = useDataProvider();
-  const fields = useQuery(["fields", "getFields"], () =>
-    dataProvider.getFields("engagements")
-  );
+  const fields = useQuery(["fields", "getFields"], () => dataProvider.getFields("engagements"));
 
   const { data: field_states } = useGetManyReference(
     "field_status",
@@ -87,17 +85,11 @@ export const EngagementEdit = () => {
 
   if (!field_states || !data || !fields || !notes) return null;
 
-  demoFieldStates = field_states?.filter(
-    (field_state: FieldState) => field_state.field === "mandatory_activities"
-  );
+  demoFieldStates = field_states?.filter((field_state: FieldState) => field_state.field === "mandatory_activities");
 
-  demoField = fields.data.data?.find(
-    (field: Field) => field.field === "mandatory_activities"
-  );
+  demoField = fields.data?.data?.find((field: Field) => field.field === "mandatory_activities");
 
-  demoFieldNotes = notes?.filter(
-    (note: FieldNote) => note.field === "mandatory_activities"
-  );
+  demoFieldNotes = notes?.filter((note: FieldNote) => note.field === "mandatory_activities");
 
   //console.log("demoField", demoField);
   return (
@@ -117,11 +109,7 @@ export const EngagementEdit = () => {
                   ID: <TextField source="id" label="ID" />
                 </Box>
                 <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>
-                  Organisation:{" "}
-                  <ReferenceField
-                    source="organisationId"
-                    reference="organisations"
-                  />
+                  Organisation: <ReferenceField source="organisationId" reference="organisations" />
                 </Box>
               </WrapperField>
               {/* <Typography variant="h5" sx={{ paddingTop: "10px" }}>

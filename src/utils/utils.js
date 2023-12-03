@@ -17,10 +17,7 @@ var titleStyle = (string) => {
       //console.log(typeof i, i);
       itemValue = stringArray[i];
       if (itemValue.length > 2 || (itemValue.length < 2 && Math.abs(i) === 0)) {
-        jointString.push(
-          itemValue.substring(0, 1).toUpperCase() +
-            itemValue.substring(1, itemValue.length)
-        );
+        jointString.push(itemValue.substring(0, 1).toUpperCase() + itemValue.substring(1, itemValue.length));
       } else {
         jointString.push(itemValue);
       }

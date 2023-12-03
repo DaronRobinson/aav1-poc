@@ -24,18 +24,13 @@ const Header = () => {
   return (
     <Box component="nav" sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary">
-        <Toolbar
-          variant="dense"
-          sx={{ width: "80%", margin: "5px auto", maxWidth: { xl: 3200 } }}
-        >
+        <Toolbar variant="dense" sx={{ width: "80%", margin: "5px auto", maxWidth: { xl: 3200 } }}>
           <Box flex={1} display="flex" justifyContent="space-between">
             <Box display="flex" alignItems="center">
               <Box
                 component="img"
                 sx={{ marginRight: "1em", height: 30 }}
-                src={
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-                }
+                src={"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"}
                 alt="Bosch Logo"
               />
               <Typography component="span" variant="h5">
@@ -43,19 +38,8 @@ const Header = () => {
               </Typography>
             </Box>
             <Box>
-              <Tabs
-                value={currentPath}
-                aria-label="Navigation Tabs"
-                indicatorColor="secondary"
-                textColor="inherit"
-              >
-                <Tab
-                  sx={{ fontSize: "16px" }}
-                  label={"Dashboard"}
-                  component={Link}
-                  to="/"
-                  value="/"
-                />
+              <Tabs value={currentPath} aria-label="Navigation Tabs" indicatorColor="secondary" textColor="inherit">
+                <Tab sx={{ fontSize: "16px" }} label={"Dashboard"} component={Link} to="/" value="/" />
                 <Tab
                   sx={{ fontSize: "16px" }}
                   label={"Engagements"}
@@ -70,13 +54,7 @@ const Header = () => {
                   to="/organisations"
                   value="/organisations"
                 />
-                <Tab
-                  sx={{ fontSize: "16px" }}
-                  label={"Admin"}
-                  component={Link}
-                  to="/admin"
-                  value="/admin"
-                />
+                <Tab sx={{ fontSize: "16px" }} label={"Admin"} component={Link} to="/admin" value="/admin" />
                 {/* <Tab
                   sx={{ fontSize: "16px" }}
                   label={'Contacts'}
