@@ -1,10 +1,5 @@
 import { stringify } from "query-string";
-import {
-  fetchUtils,
-  DataProvider,
-  DeleteResult,
-  DeleteManyResult,
-} from "react-admin";
+import { fetchUtils, DataProvider, DeleteResult, DeleteManyResult } from "react-admin";
 
 /**
  * Maps react-admin queries to a directus powered REST API
@@ -49,18 +44,11 @@ import {
  *     </Admin>
  * );
  */
-export const directusDataProvider = (
-  apiBaseUrl: string,
-  httpClient = fetchUtils.fetchJson
-): DataProvider => ({
+export const directusDataProvider = (apiBaseUrl: string, httpClient = fetchUtils.fetchJson): DataProvider => ({
   getList: (resource, params) => {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
-    const {
-      q: queryFilter,
-      search: searchFilter,
-      ...otherFilters
-    } = params.filter;
+    const { q: queryFilter, search: searchFilter, ...otherFilters } = params.filter;
 
     const search = searchFilter || queryFilter;
     const filter = generateFilter(otherFilters);
@@ -72,22 +60,22 @@ export const directusDataProvider = (
       sort: order === "ASC" ? field : `-${field}`,
       meta: "*",
     };
-    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
-      query
-    )}`;
+    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(query)}`;
 
     return httpClient(url).then(({ json }) => ({
       data: json.data,
       total: json.meta.filter_count,
     }));
   },
-  getOne: (resource, params) =>
-    httpClient(
-      `${getDirectusEndpoint(resource, apiBaseUrl)}/${params.id}`
-    ).then(({ json }) => ({
+  getOne: (resource, params) => {
+    let fields = "";
+    if (resource === "engagements") {
+      fields = "?fields[]=*.*.*";
+    }
+    return httpClient(`${getDirectusEndpoint(resource, apiBaseUrl)}/${params.id}${fields}`).then(({ json }) => ({
       data: json.data,
-    })),
-
+    }));
+  },
   getMany: (resource, params) => {
     const filter = {
       id: {
@@ -97,20 +85,14 @@ export const directusDataProvider = (
     const query = {
       filter: JSON.stringify(filter),
     };
-    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
-      query
-    )}`;
+    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(query)}`;
     return httpClient(url).then(({ json }) => ({ data: json.data }));
   },
 
   getManyReference: (resource, params) => {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
-    const {
-      q: queryFilter,
-      search: searchFilter,
-      ...otherFilters
-    } = params.filter;
+    const { q: queryFilter, search: searchFilter, ...otherFilters } = params.filter;
 
     const search = searchFilter || queryFilter;
     const filter = {
@@ -127,9 +109,7 @@ export const directusDataProvider = (
       sort: order === "ASC" ? field : `-${field}`,
       meta: "*",
     };
-    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
-      query
-    )}`;
+    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(query)}`;
 
     return httpClient(url).then(({ json }) => ({
       data: json.data,
@@ -173,11 +153,22 @@ export const directusDataProvider = (
     }).then(() => ({ data: params.ids })),
 
   getFields: (resource: string) =>
-    httpClient(`${getDirectusFieldsEndpoint(resource, apiBaseUrl)}`).then(
-      ({ json }) => ({
-        data: json.data,
-      })
-    ),
+    httpClient(`${getDirectusFieldsEndpoint(resource, apiBaseUrl)}`).then(({ json }) => ({
+      data: json.data,
+    })),
+
+  getFieldStatus: (resource: string, params: any) => {
+    const filter = {
+      id: {
+        _in: params.ids,
+      },
+    };
+    const query = {
+      filter: JSON.stringify(filter),
+    };
+    const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(query)}`;
+    return httpClient(url).then(({ json }) => ({ data: json.data }));
+  },
 });
 
 const generateFilter = (filter: any) => {

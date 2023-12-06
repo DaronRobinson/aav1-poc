@@ -11,6 +11,7 @@ type Options = {
   help_text: string | null;
   placeholder?: string | null;
   reference_data: string | null;
+  reference_data_url: string | null;
 };
 
 type Meta = {
@@ -44,4 +45,11 @@ export type FieldNote = {
   user_id: string;
   engagement_id: string;
   date_created: string;
+};
+
+export type AssuranceFormItemProps = {
+  field: Field;
+  fieldStates: FieldState[] | undefined;
+  fieldNotes: FieldNote[] | undefined;
+  refresh: () => void;
 };

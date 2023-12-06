@@ -13,6 +13,9 @@ import {
   CreateBase,
   SaveButton,
   useRefresh,
+  useStore,
+  useStoreContext,
+  useStoreResult,
 } from "react-admin";
 import Button from "@mui/material/Button";
 import { IconButton } from "@mui/material";
@@ -31,33 +34,28 @@ import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAltOutlined";
 import Save from "@mui/icons-material/Save";
 
-import { FieldContext } from "../assuranceFormFields";
-import { FieldNote } from "../../types/assuranceFieldTypes";
+import { useAssuranceFormFieldContext } from "../context";
+import { FieldNote } from "../../../types/assuranceFieldTypes";
 
 export default function NoteControl({ type }: { type: string }) {
   const [open, setOpen] = React.useState(false); // Controls modal
   const [hasNote, setHasNote] = React.useState(false); // Controls icon
-  const engagement = useRecordContext();
-  const user = useGetIdentity();
 
-  const { fieldData, fieldNotes } = React.useContext(FieldContext);
+  const { user, engagement, field, fieldNotes } = useAssuranceFormFieldContext();
 
-  if (!fieldNotes) return null;
+  if (!fieldNotes || !user) return null;
 
   const userFieldNotes = fieldNotes?.filter(
-    (field_note: FieldNote) => field_note.user_id === user.identity?.id && field_note.type === type
+    (field_note: FieldNote) => field_note.user_id === user.id && field_note.type === type
   );
 
   if (userFieldNotes) {
     userFieldNotes.sort((a: FieldNote, b: FieldNote) => {
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
       return Date.parse(b.date_created) - Date.parse(a.date_created);
     });
   }
 
   if (userFieldNotes[0] && hasNote === false) {
-    console.log("set user_field_note from DB", userFieldNotes[0]);
     setHasNote(true);
   }
 
@@ -65,18 +63,15 @@ export default function NoteControl({ type }: { type: string }) {
   if (error) {
     console.log("error", error);
   }
-  console.log("hasNote", hasNote);
-
   const handleSubmit = async (data: any) => {
-    console.log(data);
     setOpen(false);
     create(
       "notes",
       {
         data: {
-          user_id: user.identity?.id,
+          user_id: user.id,
           engagement_id: engagement.id,
-          field: fieldData.field,
+          field: field.field,
           message: data.message,
           comments: data.comments,
           finding_type: data.finding_type,

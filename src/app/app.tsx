@@ -1,4 +1,6 @@
 "use client"; // only needed if you choose App Router
+import React, { useEffect } from "react";
+
 import {
   Admin,
   Resource,
@@ -6,14 +8,17 @@ import {
   addRefreshAuthToAuthProvider,
   ListGuesser,
   EditGuesser,
-  fetchUtils,
   localStorageStore,
   CustomRoutes,
+  useAuthProvider,
+  useStore,
+  useGetIdentity,
 } from "react-admin";
+import { useQuery } from "react-query";
+
 import {} from "ra-directus";
 import { Route } from "react-router-dom";
 import { QueryClient } from "react-query";
-import { Box } from "@mui/material";
 
 import Layout from "@/components/layout";
 import organisations from "./organisations";
@@ -33,31 +38,23 @@ import { OrgContacts } from "./organisations/orgContacts";
 import AdminPage from "./admin/page";
 import { Dashboard } from "./dashboard/dashboard";
 import "./globals.css";
-import {
-  directusAuthProvider,
-  directusRefreshAuthToken,
-  getDirectusProviders,
-} from "ra-directus";
+import { directusRefreshAuthToken, getDirectusProviders } from "ra-directus";
 import { directusDataProvider } from "@/dataProvider/directusDataProvider";
+import { directusAuthProvider } from "@/dataProvider/directusAuthProvider";
+
 const directusApiUrl = "http://localhost:8055";
 const refreshAuthToken = directusRefreshAuthToken(directusApiUrl);
 
-const { authProvider } = getDirectusProviders(directusApiUrl, {
-  getIdentityFullName: (user) => user.first_name + "  " + user.last_name, // Optional, defaults to `${user.last_name} ${user.first_name}`
-});
+// const { authProvider } = getDirectusProviders(directusApiUrl, {
+//   getIdentityFullName: (user) => user.first_name + "  " + user.last_name, // Optional, defaults to `${user.last_name} ${user.first_name}`
+// });
 
 // const authProvider = directusAuthProvider(directusApiUrl);
 // const dataProvider = directusDataProvider(directusApiUrl);
 
-const authProviderRefresh = addRefreshAuthToAuthProvider(
-  authProvider,
-  refreshAuthToken
-);
+const authProviderRefresh = addRefreshAuthToAuthProvider(directusAuthProvider(directusApiUrl), refreshAuthToken);
 
-const dataProvider = addRefreshAuthToDataProvider(
-  directusDataProvider(directusApiUrl),
-  refreshAuthToken
-);
+const dataProvider = addRefreshAuthToDataProvider(directusDataProvider(directusApiUrl), refreshAuthToken);
 
 // const queryClient = new QueryClient({
 //   defaultOptions: {
@@ -67,59 +64,44 @@ const dataProvider = addRefreshAuthToDataProvider(
 //   },
 // });
 
-const App = () => (
-  <Admin
-    // queryClient={queryClient}
-    dataProvider={dataProvider}
-    authProvider={authProviderRefresh}
-    layout={Layout}
-    dashboard={Dashboard}
-  >
-    <Resource
-      name="engagements"
-      list={engagements.list}
-      recordRepresentation={(record) => `${record.name}`}
+const App = () => {
+  return (
+    <Admin
+      // queryClient={queryClient}
+      dataProvider={dataProvider}
+      authProvider={authProviderRefresh}
+      layout={Layout}
+      dashboard={Dashboard}
+      store={localStorageStore(undefined, "Assurance")}
     >
-      <Route path=":id/" element={<EngagementEdit />} />
-      <Route path=":id/agenda" element={<Agenda />} />
-      <Route path=":id/strategic-analysis" element={<StrategicAnalysis />} />
-      <Route path=":id/site-visit" element={<SiteVisit />} />
-      <Route path=":id/risk-assessment" element={<RiskAssessment />} />
-    </Resource>
-    <Resource
-      name="organisations"
-      {...organisations}
-      recordRepresentation={(record) => `${record.name}`}
-    >
-      <Route path=":id/business_units" element={<OrgBusinessUnits />} />
-      <Route path=":id/addresses" element={<OrgAddresses />} />
-      <Route path=":id/contacts" element={<OrgContacts />} />
-    </Resource>
-    <CustomRoutes>
-      <Route path="admin" element={<AdminPage />} />
-    </CustomRoutes>
-    <Resource
-      name="business_units"
-      {...businessUnits}
-      recordRepresentation="name"
-    />
-    <Resource
-      name="contacts"
-      {...contacts}
-      recordRepresentation={(record) =>
-        `${record.first_name} ${record.last_name}`
-      }
-    />
-    <Resource name="anzsics" {...anzsics} recordRepresentation="label" />
-    <Resource name="field_status" list={ListGuesser} edit={EditGuesser} />
-    <Resource name="notes" list={ListGuesser} edit={EditGuesser} />
-    <Resource
-      name="addresses"
-      {...addresses}
-      recordRepresentation="street_address"
-    />
-  </Admin>
-);
+      <Resource name="engagements" list={engagements.list} recordRepresentation={(record) => `${record.name}`}>
+        <Route path=":id/" element={<EngagementEdit />} />
+        <Route path=":id/agenda" element={<Agenda />} />
+        <Route path=":id/strategic-analysis" element={<StrategicAnalysis />} />
+        <Route path=":id/site-visit" element={<SiteVisit />} />
+        <Route path=":id/risk-assessment" element={<RiskAssessment />} />
+      </Resource>
+      <Resource name="organisations" {...organisations} recordRepresentation={(record) => `${record.name}`}>
+        <Route path=":id/business_units" element={<OrgBusinessUnits />} />
+        <Route path=":id/addresses" element={<OrgAddresses />} />
+        <Route path=":id/contacts" element={<OrgContacts />} />
+      </Resource>
+      <CustomRoutes>
+        <Route path="admin" element={<AdminPage />} />
+      </CustomRoutes>
+      <Resource name="business_units" {...businessUnits} recordRepresentation="name" />
+      <Resource
+        name="contacts"
+        {...contacts}
+        recordRepresentation={(record) => `${record.first_name} ${record.last_name}`}
+      />
+      <Resource name="anzsics" {...anzsics} recordRepresentation="label" />
+      <Resource name="field_status" list={ListGuesser} edit={EditGuesser} />
+      <Resource name="notes" list={ListGuesser} edit={EditGuesser} />
+      <Resource name="addresses" {...addresses} recordRepresentation="street_address" />
+    </Admin>
+  );
+};
 
 export default App;
 

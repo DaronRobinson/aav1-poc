@@ -1,6 +1,8 @@
+import React, { useEffect } from "react";
 import {
   DateInput,
   Edit,
+  EditBase,
   ReferenceArrayInput,
   ReferenceInput,
   SimpleForm,
@@ -15,11 +17,15 @@ import {
   AutocompleteArrayInput,
   BooleanInput,
   useGetOne,
+  useEditContext,
   useDataProvider,
+  useAuthProvider,
   useGetList,
   useGetIdentity,
   useGetManyReference,
   useRecordContext,
+  useStore,
+  useRefresh,
 } from "react-admin";
 import {
   certificationProgrammes,
@@ -29,87 +35,78 @@ import {
   auditType,
   auditScope,
 } from "@/dataProvider/lists";
-import { AssuranceFormField } from "@/components/assuranceFormFields";
+import { AssuranceFormField } from "@/components/formField/assuranceFormField";
 import { EngagementMenu } from "./engagementMenu";
 import TitleBar from "../../components/titleBar";
-import { Grid, Divider, Box, Typography } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useWatch, useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Field, FieldState, FieldNote } from "@/types/assuranceFieldTypes";
+import { Field, FieldState, FieldNote, AssuranceFormItemProps } from "@/types/assuranceFieldTypes";
 
-const ChangeProgramme = () => {
-  const programme = useWatch({ name: "certificationProgramme" });
-  let objectives = auditObjectives[0]["id"];
-  let criteria = auditCriteria[0]["id"];
-  let scope = auditScope[0]["id"];
+// const ChangeProgramme = () => {
+//   const programme = useWatch({ name: "certificationProgramme" });
+//   let objectives = auditObjectives[0]["id"];
+//   let criteria = auditCriteria[0]["id"];
+//   let scope = auditScope[0]["id"];
 
-  if (programme === "verification-only") {
-    objectives = auditObjectives[1]["id"];
-    criteria = auditCriteria[1]["id"];
-    scope = auditScope[1]["id"];
-  }
-  useFormContext().setValue("auditObjectives", objectives);
-  useFormContext().setValue("auditCriteria", criteria);
-  useFormContext().setValue("scope", scope);
-  return null;
-};
+//   if (programme === "verification-only") {
+//     objectives = auditObjectives[1]["id"];
+//     criteria = auditCriteria[1]["id"];
+//     scope = auditScope[1]["id"];
+//   }
+//   useFormContext().setValue("auditObjectives", objectives);
+//   useFormContext().setValue("auditCriteria", criteria);
+//   useFormContext().setValue("scope", scope);
+//   return null;
+// };
 
-export const EngagementEdit = () => {
-  const { id } = useParams(); //TODO - figure out how to access useRecordContext inside this sideBarLayout
-  const { data, isLoading } = useGetOne("engagements", { id });
-  let demoFieldStates = undefined;
-  let demoFieldNotes = undefined;
-  let demoField = undefined;
-
+export const EngagementEditForm = () => {
+  const record = useRecordContext();
+  const refresh = useRefresh();
+  let demo = {} as AssuranceFormItemProps;
+  const [user] = useStore("user");
+  console.log("record", record);
   const dataProvider = useDataProvider();
   const fields = useQuery(["fields", "getFields"], () => dataProvider.getFields("engagements"));
-
-  const { data: field_states } = useGetManyReference(
-    "field_status",
-    {
-      target: "engagement_id",
-      id: data?.id,
-    },
-    { enabled: !isLoading && data && data.id !== undefined }
-  );
 
   const { data: notes } = useGetManyReference(
     "notes",
     {
       target: "engagement_id",
-      id: data?.id,
+      id: record?.id,
     },
-    { enabled: !isLoading && data && data.id !== undefined }
+    { enabled: record && record.id !== undefined }
   );
 
-  if (!field_states || !data || !fields || !notes) return null;
+  if (!record) return null;
 
-  demoFieldStates = field_states?.filter((field_state: FieldState) => field_state.field === "mandatory_activities");
+  if (!record || !fields || !notes) return null;
 
-  demoField = fields.data?.data?.find((field: Field) => field.field === "mandatory_activities");
+  demo.field = fields?.data?.data?.find((field: Field) => field.field === "mandatory_activities");
 
-  demoFieldNotes = notes?.filter((note: FieldNote) => note.field === "mandatory_activities");
+  demo.fieldNotes = notes?.filter((note: FieldNote) => note.field === "mandatory_activities");
 
-  //console.log("demoField", demoField);
+  demo.refresh = refresh;
+
+  //console.log("demoField", demo);
   return (
-    (data && demoField !== undefined && (
+    (record && demo !== undefined && (
       <Grid container spacing={2}>
         <Grid item xs={6} sm={2}>
           <EngagementMenu />
         </Grid>
         <Grid item xs={6} sm={9}>
-          <TitleBar title="Edit Engagement" itemName={data.name} />
+          <TitleBar title="Edit Engagement" itemName={record.name} />
           <Edit>
             <SimpleForm>
-              <ChangeProgramme />
+              {/* <ChangeProgramme /> */}
 
               <WrapperField>
                 <Box sx={{ fontSize: "15px" }}>
                   ID: <TextField source="id" label="ID" />
                 </Box>
                 <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>
-                  Organisation: <ReferenceField source="organisationId" reference="organisations" />
+                  Organisation: <ReferenceField source="organisationId.id" reference="organisations" />
                 </Box>
               </WrapperField>
               {/* <Typography variant="h5" sx={{ paddingTop: "10px" }}>
@@ -167,12 +164,7 @@ export const EngagementEdit = () => {
                 multiline
                 className="plainInput"
               /> */}
-              <AssuranceFormField
-                field={demoField}
-                fieldStates={demoFieldStates}
-                fieldNotes={demoFieldNotes}
-                type="textArea"
-              />
+              <AssuranceFormField {...demo} />
 
               {/* <Typography variant="h5" sx={{ paddingTop: "30px" }}>
               Reporting Period
@@ -276,6 +268,22 @@ export const EngagementEdit = () => {
         <Grid item xs={6} sm={1}></Grid>
       </Grid>
     )) || <p>fail</p>
+  );
+};
+
+export const EngagementEdit = () => {
+  const [user, setUser] = useStore("user", {});
+  const { data } = useGetIdentity(); //this should move up, probably to auth provider but store access seems weird
+
+  useEffect(() => {
+    console.log("Saving user to store:", data);
+    if (data) setUser(data);
+  }, [data]);
+
+  return (
+    <EditBase>
+      <EngagementEditForm />
+    </EditBase>
   );
 };
 

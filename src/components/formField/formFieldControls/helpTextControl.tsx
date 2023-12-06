@@ -2,11 +2,10 @@ import * as React from "react";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import { FieldContext } from "../assuranceFormFields";
+import { useAssuranceFormFieldContext } from "../context";
 
 export default function HelpTextControl() {
-  const { fieldData } = React.useContext(FieldContext);
-  //console.log(fieldData);
+  const { field } = useAssuranceFormFieldContext();
   const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
@@ -21,8 +20,8 @@ export default function HelpTextControl() {
 
   return (
     <div>
-      {fieldData.meta != undefined && (
-        <LightTooltip title={fieldData.meta.options.help_text} className="helpText">
+      {field.meta != undefined && (
+        <LightTooltip title={field.meta.options.help_text} className="helpText">
           <HelpOutlineOutlinedIcon />
         </LightTooltip>
       )}
