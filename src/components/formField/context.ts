@@ -1,106 +1,94 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { AssuranceFormItemProps, FieldState } from "../../types/assuranceFieldTypes";
-import { useRecordContext, useStore, useCreate, useUpdate } from "react-admin";
+import { createContext, useContext, useEffect, useState } from "react";
+import { AssuranceFormItemProps } from "../../types/assuranceFieldTypes";
+import { useRecordContext, useStore } from "react-admin";
+import useFieldStatusActions from "./hooks/useFieldStatusActions";
+import useFieldNoteActions from "./hooks/useFieldNoteActions";
 
 export function useAssuranceFormField({ field, fieldNotes, refresh }: AssuranceFormItemProps) {
   const [flag, setFlag] = useState<string | null>(null);
+  const [hasNote, setHasNote] = useState(false);
+  const [hasFinding, setHasFinding] = useState(false);
 
   const engagement = useRecordContext();
   const [user] = useStore("user");
 
-  const userFieldStates = engagement.field_states
-    ?.filter((f: any) => f.field_status_id.user_id === user.id && f.field_status_id.field === field?.field)
-    .map((f: any) => f.field_status_id);
+  const { userFieldState, updateFieldStatus, createFieldStatus } = useFieldStatusActions({
+    userId: user?.id,
+    engagementId: engagement?.id,
+    field: field?.field,
+    fieldStates: engagement?.field_states,
+    status: flag,
+    refresh,
+  });
 
-  if (userFieldStates) {
-    userFieldStates.sort((a: FieldState, b: FieldState) => {
-      return Date.parse(b.date_created) - Date.parse(a.date_created);
+  const { userFieldNote, userFieldFinding, updateFieldNote, createFieldNote, updateFieldFinding, createFieldFinding } =
+    useFieldNoteActions({
+      userId: user?.id,
+      engagementId: engagement?.id,
+      field: field?.field,
+      fieldNotes: field?.notes,
+      refresh,
     });
-  }
-  useEffect(() => {
-    if (userFieldStates && userFieldStates[0] && flag === null) {
-      setFlag(userFieldStates[0]?.status);
-    }
-  }, [userFieldStates]);
 
-  const [associateFieldStatus] = useCreate(); //TODO move to their own hooks
-  const [update] = useUpdate(
-    "field_status",
-    { id: userFieldStates[0]?.id, data: { status: flag } },
-    {
-      onSuccess: (data) => {
-        console.log("updated a field_status", data);
-        refresh();
-      },
-      onError: (error) => {
-        console.log("error", error);
-      },
+  useEffect(() => {
+    if (userFieldState && flag === null) {
+      setFlag(userFieldState.status);
     }
-  );
-  const [createFieldStatus] = useCreate(
-    "field_status",
-    {
-      data: {
-        user_id: user.id,
-        engagement_id: engagement.id,
-        field: field?.field,
-        status: flag,
-      },
-    },
-    {
-      onSuccess: (status) => {
-        console.log("saved a field_status", status);
-        associateFieldStatus(
-          "engagements_field_status",
-          {
-            data: {
-              engagements_id: engagement.id,
-              field_status_id: status.id,
-            },
-          },
-          {
-            onSuccess: (assoc) => {
-              console.log("saved a engagements_field_status", assoc);
-              refresh();
-            },
-            onError: (error) => {
-              console.log("error", error);
-            },
-          }
-        );
-      },
-      onError: (error) => {
-        console.log("error on a field_status");
-      },
+  }, [userFieldState]);
+
+  useEffect(() => {
+    if (userFieldNote && hasNote === false) {
+      setHasNote(true);
     }
-  ); // Access dataProvider API call
+  }, [userFieldNote]);
+
+  useEffect(() => {
+    if (userFieldFinding && hasFinding === false) {
+      setHasFinding(true);
+    }
+  }, [userFieldFinding]);
+
+  console.log("has:", hasNote, hasFinding);
 
   const setFieldStatus = (choice: string) => {
-    if (userFieldStates[0]?.id) {
+    if (userFieldState?.id) {
       console.log("update a field_status");
-      update("field_status", { id: userFieldStates[0]?.id, data: { status: choice } });
+      updateFieldStatus(choice);
     } else {
-      createFieldStatus("field_status", {
-        data: {
-          user_id: user.id,
-          engagement_id: engagement.id,
-          field: field.field,
-          status: choice,
-        },
-      });
+      createFieldStatus(choice);
     }
   };
 
-  //console.log("context", field, fieldStates, fieldNotes);
+  const setFieldNote = (noteData: any) => {
+    if (userFieldNote?.id) {
+      console.log("update a note");
+      updateFieldNote(noteData);
+    } else {
+      createFieldNote(noteData);
+    }
+  };
+
+  const setFieldFinding = (findingData: any) => {
+    if (userFieldFinding?.id) {
+      console.log("update a finding");
+      updateFieldFinding(findingData);
+    } else {
+      createFieldFinding(findingData);
+    }
+  };
+
   return {
     user,
     engagement,
     field,
     flag,
     setFlag,
-    fieldNotes,
+    hasNote,
+    hasFinding,
     refresh,
     setFieldStatus,
+    setFieldNote,
+    setFieldFinding,
   };
 }
 

@@ -26,6 +26,7 @@ export type Field = {
   meta: Meta;
   schema: Schema;
   type: string;
+  notes?: FieldNote[];
 };
 
 export type FieldState = {

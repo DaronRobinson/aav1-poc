@@ -39,53 +39,71 @@ import { FieldNote } from "../../../types/assuranceFieldTypes";
 
 export default function NoteControl({ type }: { type: string }) {
   const [open, setOpen] = React.useState(false); // Controls modal
-  const [hasNote, setHasNote] = React.useState(false); // Controls icon
 
-  const { user, engagement, field, fieldNotes } = useAssuranceFormFieldContext();
+  const { user, engagement, field, hasNote, hasFinding, setFieldNote, setFieldFinding } =
+    useAssuranceFormFieldContext();
 
-  if (!fieldNotes || !user) return null;
+  // if (!fieldNotes || !user) return null;
 
-  const userFieldNotes = fieldNotes?.filter(
-    (field_note: FieldNote) => field_note.user_id === user.id && field_note.type === type
-  );
+  // const userFieldNotes = fieldNotes?.filter(
+  //   (field_note: FieldNote) => field_note.user_id === user.id && field_note.type === type
+  // );
 
-  if (userFieldNotes) {
-    userFieldNotes.sort((a: FieldNote, b: FieldNote) => {
-      return Date.parse(b.date_created) - Date.parse(a.date_created);
-    });
-  }
+  // if (userFieldNotes) {
+  //   userFieldNotes.sort((a: FieldNote, b: FieldNote) => {
+  //     return Date.parse(b.date_created) - Date.parse(a.date_created);
+  //   });
+  // }
 
-  if (userFieldNotes[0] && hasNote === false) {
-    setHasNote(true);
-  }
+  // if (userFieldNotes[0] && hasNote === false) {
+  //   setHasNote(true);
+  // }
 
-  const [create, { isLoading, error }] = useCreate(); // Access dataProvider API call
-  if (error) {
-    console.log("error", error);
-  }
+  // const [create, { isLoading, error }] = useCreate(); // Access dataProvider API call
+  // if (error) {
+  //   console.log("error", error);
+  // }
   const handleSubmit = async (data: any) => {
     setOpen(false);
-    create(
-      "notes",
-      {
-        data: {
-          user_id: user.id,
-          engagement_id: engagement.id,
-          field: field.field,
-          message: data.message,
-          comments: data.comments,
-          finding_type: data.finding_type,
-          type: type,
-        },
-      },
-      {
-        onSettled: (data) => {
-          console.log("saved a note");
-          setHasNote(true);
-          //refresh();
-        },
-      }
-    );
+
+    if (type === "note") {
+      setFieldNote({
+        field: field.field,
+        message: data.message,
+        comments: data.comments,
+        type: type,
+      });
+    } else if (type === "finding") {
+      setFieldFinding({
+        field: field.field,
+        message: data.message,
+        comments: data.comments,
+        type: type,
+        finding_type: data.finding_type,
+      });
+    }
+
+    // create(
+    //   "notes",
+    //   {
+    //     data: {
+    //       user_id: user.id,
+    //       engagement_id: engagement.id,
+    //       field: field.field,
+    //       message: data.message,
+    //       comments: data.comments,
+    //       finding_type: data.finding_type,
+    //       type: type,
+    //     },
+    //   },
+    //   {
+    //     onSettled: (data) => {
+    //       console.log("saved a note");
+    //       setHasNote(true);
+    //       //refresh();
+    //     },
+    //   }
+    // );
   };
 
   // const handleFileUpload = async (files: any) => {
@@ -103,14 +121,16 @@ export default function NoteControl({ type }: { type: string }) {
   return (
     <CreateBase resource="notes">
       <IconButton
-        className={`inputIcon iconButton ${hasNote ? "highlight " : ""}}`}
+        className={`inputIcon iconButton ${
+          (type == "note" && hasNote) || (type == "finding" && hasFinding) ? "highlight " : ""
+        }}`}
         aria-label="create"
         onClick={() => setOpen(true)}
       >
         {type == "note" && !hasNote && <ChatBubbleOutlineOutlinedIcon />}
         {type == "note" && hasNote && <ChatIcon />}
-        {type == "finding" && !hasNote && <ReportProblemOutlinedIcon />}
-        {type == "finding" && hasNote && <ReportProblemIcon />}
+        {type == "finding" && !hasFinding && <ReportProblemOutlinedIcon />}
+        {type == "finding" && hasFinding && <ReportProblemIcon />}
       </IconButton>
       <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title" maxWidth="md" fullWidth>
         <Form onSubmit={handleSubmit}>

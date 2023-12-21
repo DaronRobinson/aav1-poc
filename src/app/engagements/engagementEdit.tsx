@@ -84,7 +84,7 @@ export const EngagementEditForm = () => {
 
   demo.field = fields?.data?.data?.find((field: Field) => field.field === "mandatory_activities");
 
-  demo.fieldNotes = notes?.filter((note: FieldNote) => note.field === "mandatory_activities");
+  if (demo.field) demo.field.notes = notes?.filter((note: FieldNote) => note.field === "mandatory_activities");
 
   demo.refresh = refresh;
 
@@ -106,7 +106,7 @@ export const EngagementEditForm = () => {
                   ID: <TextField source="id" label="ID" />
                 </Box>
                 <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>
-                  Organisation: <ReferenceField source="organisationId.id" reference="organisations" />
+                  Organisation: <ReferenceField source="organisation.id" reference="organisations" />
                 </Box>
               </WrapperField>
               {/* <Typography variant="h5" sx={{ paddingTop: "10px" }}>
