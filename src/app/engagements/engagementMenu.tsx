@@ -9,38 +9,22 @@ export const EngagementMenu = () => {
   const { id } = useParams();
   return (
     <Menu sx={{ paddingTop: "20px" }}>
-      <Menu.Item
-        to={`/engagements`}
-        primaryText="Engagements"
-        leftIcon={<ViewListIcon />}
-      >
-        <Menu.ResourceItem name="engagements" />
-      </Menu.Item>
+      <Menu.Item to={`/engagements/${id}/details`} primaryText="Details" leftIcon={<ViewListIcon />} />
       <Menu.Item
         to={`/engagements/${id}/strategic-analysis`}
         primaryText="Strategic Analysis"
         leftIcon={<ViewListIcon />}
       />
       <Menu.Item
-        to={`/engagements/${id}/site-visit`}
-        primaryText="Site Visit"
+        to={`/engagements/${id}/emissions-inventory`}
+        primaryText="Emissions Inventory"
         leftIcon={<ViewListIcon />}
       />
-      <Menu.Item
-        to={`/engagements/${id}/risk-assessment`}
-        primaryText="Risk Assessment"
-        leftIcon={<ViewListIcon />}
-      />
-      <Menu.Item
-        to={`/engagements/${id}/agenda`}
-        primaryText="Agenda"
-        leftIcon={<ViewListIcon />}
-      />
-      <Menu.Item
-        to="/custom-route"
-        primaryText="..and more things"
-        leftIcon={<LabelIcon />}
-      />
+      <Menu.Item to={`/engagements/${id}/findings-log`} primaryText="Findings Log" leftIcon={<ViewListIcon />} />
+      <Menu.Item to={`/engagements/${id}/site-visit`} primaryText="Site Visit" leftIcon={<ViewListIcon />} />
+      <Menu.Item to={`/engagements/${id}/risk-assessment`} primaryText="Risk Assessment" leftIcon={<ViewListIcon />} />
+      <Menu.Item to={`/engagements/${id}/agenda`} primaryText="Agenda" leftIcon={<ViewListIcon />} />
+      <Menu.Item to="/custom-route" primaryText="..and more things" leftIcon={<LabelIcon />} />
     </Menu>
   );
 };

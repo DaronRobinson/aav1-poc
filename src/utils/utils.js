@@ -47,18 +47,14 @@ export const slugToString = (slug, tStyle = true) => {
   return newString;
 };
 
-// function convertString() {
-//   var stringField = $("#string"),
-//     resultField = $("#results"),
-//     tstyleField = $("#titlecase"),
-//     tstyle = tstyleField.is(":checked");
-
-//   if (stringField.val().length === 0) {
-//     alert("Enter slug string");
-//     return false;
-//   }
-
-//   resultField.val(slugToString(stringField.val(), tstyle));
-
-//   return false;
-// }
+/**
+ * Unslugifies a slugified string.
+ *
+ * @param {string} slug slugified string.
+ * @returns {string} un-slugified string.
+ */
+export const unslugify = (slug) =>
+  slug
+    .replace("-", " ")
+    .replace("_", " ")
+    .replace(/\w\S*/g, (text) => text.charAt(0).toUpperCase() + text.slice(1).toLowerCase());

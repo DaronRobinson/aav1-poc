@@ -48,9 +48,9 @@ export default function FlagControl() {
           <OutlinedFlagIcon className="flagIcon client" />
           Needs Client Discussion
         </MenuItem>
-        <MenuItem onClick={() => handleClose("approved")}>
-          <OutlinedFlagIcon className="flagIcon approved" />
-          Approved
+        <MenuItem onClick={() => handleClose("verified")}>
+          <OutlinedFlagIcon className="flagIcon verified" />
+          Verified
         </MenuItem>
         <MenuItem onClick={() => handleClose("reviewed")}>
           <FlagIcon className="flagIcon reviewed" />

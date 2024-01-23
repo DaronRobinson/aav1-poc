@@ -1,19 +1,8 @@
-import {
-  Datagrid,
-  DateField,
-  List,
-  ReferenceArrayField,
-  ReferenceField,
-  TextField,
-} from "react-admin";
+import { Datagrid, DateField, List, ReferenceArrayField, ReferenceField, TextField } from "react-admin";
 import { Box, Typography, Grid } from "@mui/material";
-import { EngagementMenu } from "./engagementMenu";
 export const EngagementList = () => (
   <Grid container spacing={2}>
-    <Grid item xs={6} sm={2}>
-      <EngagementMenu />
-    </Grid>
-    <Grid item xs={6} sm={9}>
+    <Grid item xs={6} sm={12}>
       <Box>
         <Typography
           sx={{

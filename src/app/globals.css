@@ -8,11 +8,12 @@
   --background-end-rgb: 255, 255, 255;
   --link-color: #1976d2;
   --grey-color: #ccc;
-  --approved-rgb: 68, 153, 119;
+  --verified-rgb: 68, 153, 119;
   --investigate-rgb: 204, 153, 204;
   --client-rgb: 153, 102, 0;
   --reviewed-rgb: 0, 153, 00;
   --rejected-rgb: 204, 0, 0;
+  --revised-rgb: 204, 162, 0;
   --remove-rgb: 204, 204, 204;
 }
 
@@ -65,8 +66,13 @@ body {
 .noteInput textarea {
   height: 400px !important;
 }
+.MuiTypography-root.standardInputLabel {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 0px;
+}
 
-.standardInput textarea {
+.MuiFormControl-root.standardInput textarea {
   height: 70px !important;
 }
 
@@ -74,9 +80,9 @@ body {
   border: 0 !important;
 }
 
-.standardInput.approved div {
-  border: 1px solid rgb(var(--approved-rgb)) !important;
-  background-color: rgba(var(--approved-rgb), 0.05) !important;
+.standardInput.verified div {
+  border: 1px solid rgb(var(--verified-rgb)) !important;
+  background-color: rgba(var(--verified-rgb), 0.05) !important;
 }
 
 .standardInput.investigate div {
@@ -176,8 +182,8 @@ button.inputIcon.flag:hover {
   color: rgb(var(--client-rgb));
 }
 
-.flagIcon.approved {
-  color: rgb(var(--approved-rgb));
+.flagIcon.verified {
+  color: rgb(var(--verified-rgb));
 }
 
 .flagIcon.reviewed {
@@ -190,4 +196,38 @@ button.inputIcon.flag:hover {
 
 .flagIcon.remove {
   color: rgb(var(--remove-rgb));
+}
+
+.RaMenuItemLink-active {
+  font-weight: 600 !important;
+}
+
+.statusField {
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-block;
+  width: 120px;
+}
+.statusField svg {
+  margin-right: 8px;
+  display: inline;
+}
+
+.statusField.pending {
+  color: rgb(var(--remove-rgb));
+}
+.statusField.verified {
+  color: rgb(var(--verified-rgb));
+}
+.statusField.with_client {
+  color: rgb(var(--client-rgb));
+}
+.statusField.investigating {
+  color: rgb(var(--investigate-rgb));
+}
+.statusField.revised {
+  color: rgb(var(--revised-rgb));
+}
+.statusField.modified {
+  color: rgb(var(--rejected-rgb));
 }

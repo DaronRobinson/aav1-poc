@@ -13,6 +13,7 @@ import {
   useAuthProvider,
   useStore,
   useGetIdentity,
+  ShowGuesser,
 } from "react-admin";
 import { useQuery } from "react-query";
 
@@ -26,10 +27,16 @@ import addresses from "./addresses";
 import contacts from "./contacts";
 import businessUnits from "./businessUnits";
 import anzsics from "./anzsics";
+import notes from "./notes";
+import emissionsSources from "./emissionsSources";
+
 import engagements from "./engagements";
 import { EngagementEdit } from "./engagements/engagementEdit";
 import { Agenda } from "./engagements/agenda";
 import { StrategicAnalysis } from "./engagements/strategicAnalysis";
+import { EmissionsInventory } from "./emissionsSources/emissionsSourcesList";
+import { FindingsLog } from "./engagements/findingsLog";
+
 import { SiteVisit } from "./engagements/siteVisit";
 import { RiskAssessment } from "./engagements/riskAssessment";
 import { OrgBusinessUnits } from "./organisations/orgBusinessUnits";
@@ -74,12 +81,19 @@ const App = () => {
       dashboard={Dashboard}
       store={localStorageStore(undefined, "Assurance")}
     >
-      <Resource name="engagements" list={engagements.list} recordRepresentation={(record) => `${record.name}`}>
-        <Route path=":id/" element={<EngagementEdit />} />
+      <Resource
+        name="engagements"
+        list={engagements.list}
+        edit={EngagementEdit}
+        recordRepresentation={(record) => `${record.name}`}
+      >
+        <Route path=":id/details" element={<EngagementEdit />} />
         <Route path=":id/agenda" element={<Agenda />} />
         <Route path=":id/strategic-analysis" element={<StrategicAnalysis />} />
+        <Route path=":id/emissions-inventory" element={<EmissionsInventory />} />
         <Route path=":id/site-visit" element={<SiteVisit />} />
         <Route path=":id/risk-assessment" element={<RiskAssessment />} />
+        <Route path=":id/findings-log" element={<FindingsLog />} />
       </Resource>
       <Resource name="organisations" {...organisations} recordRepresentation={(record) => `${record.name}`}>
         <Route path=":id/business_units" element={<OrgBusinessUnits />} />
@@ -97,7 +111,14 @@ const App = () => {
       />
       <Resource name="anzsics" {...anzsics} recordRepresentation="label" />
       <Resource name="field_status" list={ListGuesser} edit={EditGuesser} />
-      <Resource name="notes" list={ListGuesser} edit={EditGuesser} />
+      <Resource name="emissions_sources" list={ListGuesser} edit={EditGuesser} />
+      <Resource name="notes" {...notes} list={ListGuesser} edit={EditGuesser} />
+      <Resource
+        name="directus_users"
+        list={ListGuesser}
+        edit={EditGuesser}
+        recordRepresentation={(record) => `${record.email}`}
+      />
       <Resource name="addresses" {...addresses} recordRepresentation="street_address" />
     </Admin>
   );

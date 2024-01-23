@@ -49,15 +49,7 @@ export default function AssuranceFormFieldControls() {
         <Grid item xs={6} sm={4}>
           <Grid container spacing={2}>
             <Grid item>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  fontWeight: "400",
-                  paddingTop: "0px",
-                }}
-              >
-                {slugToString(field.field)}
-              </Typography>
+              <Typography className="standardInputLabel">{slugToString(field.field)}</Typography>
             </Grid>
             {field.meta.options.help_text != null && (
               <Grid item xs={6} sm={1} className="inputIcon help">
