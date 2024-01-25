@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --link-color: #1976d2;
+  --grey-color: #ccc;
+  --verified-rgb: 68, 153, 119;
+  --investigate-rgb: 204, 153, 204;
+  --client-rgb: 153, 102, 0;
+  --reviewed-rgb: 0, 153, 00;
+  --rejected-rgb: 204, 0, 0;
+  --revised-rgb: 204, 162, 0;
+  --remove-rgb: 204, 204, 204;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+.formField {
+  width: 100%;
+}
+
+.plainInput div {
+  background-color: white !important;
+  border: 0 !important;
+}
+
+.plainInput div::before {
+  border: 0 !important;
+}
+
+.standardInput div {
+  background-color: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+  padding: 12px 10px;
+  width: 100%;
+  height: 62px !important;
+}
+
+.standardInput.multiline div {
+  height: auto !important;
+}
+.noteInput div {
+  background-color: white !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+  padding: 12px 10px;
+  width: 100%;
+  height: 400px !important;
+}
+
+.noteInput textarea {
+  height: 400px !important;
+}
+.MuiTypography-root.standardInputLabel {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 0px;
+}
+
+.MuiFormControl-root.standardInput textarea {
+  height: 70px !important;
+}
+
+.standardInput div:before {
+  border: 0 !important;
+}
+
+.standardInput.verified div {
+  border: 1px solid rgb(var(--verified-rgb)) !important;
+  background-color: rgba(var(--verified-rgb), 0.05) !important;
+}
+
+.standardInput.investigate div {
+  border: 1px solid rgb(var(--investigate-rgb)) !important;
+  background-color: rgba(var(--investigate-rgb), 0.1) !important;
+}
+
+.standardInput.client div {
+  border: 1px solid rgb(var(--client-rgb)) !important;
+  background-color: rgba(var(--client-rgb), 0.1) !important;
+}
+
+.standardInput.reviewed div {
+  border: 1px solid rgb(var(--reviewed-rgb)) !important;
+  background-color: rgba(var(--reviewed-rgb), 0.1) !important;
+}
+
+.standardInput.rejected div {
+  border: 1px solid rgb(var(--rejected-rgb)) !important;
+  background-color: rgba(var(--rejected-rgb), 0.1) !important;
+}
+
+.standardInput.remove div {
+  border: 1px solid rgb(var(--remove-rgb)) !important;
+  background-color: white !important;
+}
+
+.inputIcon,
+button.inputIcon {
+  color: #ccc;
+}
+
+button.iconButton {
+  padding: 0px !important;
+}
+
+.inputIcon.note button.iconButton.highlight {
+  color: #69c !important;
+}
+
+.inputIcon.finding button.iconButton.highlight {
+  color: #cc7700 !important;
+}
+
+.inputIcon.help:hover,
+.inputIcon.reference:hover,
+button.inputIcon.flag:hover {
+  color: #1976d2;
+}
+
+.inputIcon.finding .iconButton:hover {
+  color: #cc7700;
+}
+
+.inputIcon.note .iconButton:hover {
+  color: #1976d2 !important;
+}
+
+.helpText {
+  font-size: 24px !important;
+}
+
+.referenceAccordian {
+  border: 0 !important;
+  background-color: transparent !important;
+}
+
+.referenceAccordian .referenceIcon {
+  min-height: 27px !important;
+  padding: 0 !important;
+}
+
+.referenceAccordian .referenceIcon div {
+  margin: 0 !important;
+}
+.referenceData {
+  background-color: #f6fcff;
+}
+.referenceAccordian .referenceIcon.active {
+  color: #1976d2;
+}
+
+.buttonIconWrapper {
+  min-width: 24px !important;
+  padding: 0px !important;
+}
+
+.flagIcon {
+  margin-right: 8px;
+}
+
+.flagIcon.investigate {
+  color: rgb(var(--investigate-rgb));
+}
+
+.flagIcon.client {
+  color: rgb(var(--client-rgb));
+}
+
+.flagIcon.verified {
+  color: rgb(var(--verified-rgb));
+}
+
+.flagIcon.reviewed {
+  color: rgb(var(--reviewed-rgb));
+}
+
+.flagIcon.rejected {
+  color: rgb(var(--rejected-rgb));
+}
+
+.flagIcon.remove {
+  color: rgb(var(--remove-rgb));
+}
+
+.RaMenuItemLink-active {
+  font-weight: 600 !important;
+}
+
+.statusField {
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-block;
+  width: 120px;
+}
+.statusField svg {
+  margin-right: 8px;
+  display: inline;
+}
+
+.statusField.pending {
+  color: rgb(var(--remove-rgb));
+}
+.statusField.verified {
+  color: rgb(var(--verified-rgb));
+}
+.statusField.with_client {
+  color: rgb(var(--client-rgb));
+}
+.statusField.investigating {
+  color: rgb(var(--investigate-rgb));
+}
+.statusField.revised {
+  color: rgb(var(--revised-rgb));
+}
+.statusField.modified {
+  color: rgb(var(--rejected-rgb));
+}
