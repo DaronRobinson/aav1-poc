@@ -36,8 +36,8 @@ import {
   auditScope,
 } from "@/dataProvider/lists";
 import { AssuranceFormField } from "@/components/formField/assuranceFormField";
-import { EngagementMenu } from "./engagementMenu";
-import TitleBar from "../../components/titleBar";
+import { EngagementMenu } from "../../components/demo/engagementMenu";
+import TitleBar from "../../components/demo/titleBar";
 import { Grid, Box } from "@mui/material";
 import { useWatch, useFormContext } from "react-hook-form";
 import { useQuery } from "react-query";
@@ -92,23 +92,23 @@ export const EngagementEditForm = () => {
   return (
     (record && demo !== undefined && (
       <Grid container spacing={2}>
-        <Grid item xs={6} sm={2}>
+        <Grid item xs={6} sm={2} className="sidebar">
           <EngagementMenu />
         </Grid>
-        <Grid item xs={6} sm={9}>
+        <Grid item xs={6} sm={9} className="panel">
           <TitleBar title="Edit Engagement" itemName={record.name} />
           <Edit>
             <SimpleForm>
               {/* <ChangeProgramme /> */}
 
-              <WrapperField>
+              {/* <WrapperField>
                 <Box sx={{ fontSize: "15px" }}>
                   ID: <TextField source="id" label="ID" />
                 </Box>
                 <Box sx={{ paddingBottom: "20px", fontSize: "15px" }}>
                   Organisation: <ReferenceField source="organisation.id" reference="organisations" />
                 </Box>
-              </WrapperField>
+              </WrapperField> */}
               {/* <Typography variant="h5" sx={{ paddingTop: "10px" }}>
                 Programme Details
               </Typography>
@@ -164,7 +164,9 @@ export const EngagementEditForm = () => {
                 multiline
                 className="plainInput"
               /> */}
-              <AssuranceFormField {...demo} />
+              <Box sx={{ marginTop: "5em" }}>
+                <AssuranceFormField {...demo} />
+              </Box>
 
               {/* <Typography variant="h5" sx={{ paddingTop: "30px" }}>
               Reporting Period
@@ -262,6 +264,23 @@ export const EngagementEditForm = () => {
         <TextInput source="excludeEmissionSources" sx={{ width: "100%" }} />
         <TextInput source="executiveSummary" sx={{ width: "100%" }} />
         <TextInput source="status" sx={{ width: "100%" }} /> */}
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
+                <Box
+                  component="img"
+                  sx={{
+                    marginRight: "1em",
+                    height: 80,
+                    marginTop: "5em",
+                    float: "right",
+                  }}
+                  src={"/image.gif"}
+                  alt="Bosch Logo"
+                />
+              </Box>
             </SimpleForm>
           </Edit>
         </Grid>

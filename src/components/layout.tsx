@@ -1,16 +1,16 @@
-import React, { Suspense, HtmlHTMLAttributes } from 'react';
-import { CssBaseline, Container } from '@mui/material';
-import { CoreLayoutProps, CheckForApplicationUpdate } from 'react-admin';
-import { ErrorBoundary } from 'react-error-boundary';
+import React, { Suspense, HtmlHTMLAttributes } from "react";
+import { CssBaseline, Container } from "@mui/material";
+import { CoreLayoutProps, CheckForApplicationUpdate } from "react-admin";
+import { ErrorBoundary } from "react-error-boundary";
 
-import { Error, Loading } from 'react-admin';
-import Header from './header';
+import { Error, Loading } from "react-admin";
+import Header from "./demo/header";
 
 const Layout = ({ children }: LayoutProps) => (
   <>
     <CssBaseline />
     <Header />
-    <Container sx={{ width: "80%", margin: "0 auto", maxWidth: { xl: 3200} }}>
+    <Container sx={{ width: "80%", margin: "0 auto", maxWidth: { xl: 3200 } }}>
       <main id="main-content">
         {/* @ts-ignore */}
         <ErrorBoundary FallbackComponent={Error}>
@@ -22,8 +22,6 @@ const Layout = ({ children }: LayoutProps) => (
   </>
 );
 
-export interface LayoutProps
-  extends CoreLayoutProps,
-  Omit<HtmlHTMLAttributes<HTMLDivElement>, 'title'> { }
+export interface LayoutProps extends CoreLayoutProps, Omit<HtmlHTMLAttributes<HTMLDivElement>, "title"> {}
 
 export default Layout;

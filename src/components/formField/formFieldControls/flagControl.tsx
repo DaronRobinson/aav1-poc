@@ -52,14 +52,14 @@ export default function FlagControl() {
           <OutlinedFlagIcon className="flagIcon verified" />
           Verified
         </MenuItem>
-        <MenuItem onClick={() => handleClose("reviewed")}>
+        {/* <MenuItem onClick={() => handleClose("reviewed")}>
           <FlagIcon className="flagIcon reviewed" />
           Reviewed
         </MenuItem>
         <MenuItem onClick={() => handleClose("rejected")}>
           <FlagIcon className="flagIcon rejected" />
           Rejected
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={() => handleClose("remove")}>
           <OutlinedFlagIcon className="flagIcon remove" />
           Remove Flag

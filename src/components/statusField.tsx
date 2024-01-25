@@ -2,7 +2,10 @@ import { useRecordContext } from "react-admin";
 import { unslugify } from "../utils/utils";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import WarningIcon from "@mui/icons-material/Warning";
+
 import { isAfter } from "date-fns";
 
 export const StatusField = ({ source }: { source: string }) => {
@@ -16,7 +19,9 @@ export const StatusField = ({ source }: { source: string }) => {
     <span className={status}>
       {message == "verified" && <CheckCircleIcon />}
       {message == "modified" && <ErrorIcon />}
-      {message == "revised" && <WarningIcon />}
+      {message == "finding" && <WarningIcon />}
+      {message == "revised" && <ChangeCircleIcon />}
+
       <span>{unslugify(message)}</span>
     </span>
   );
